@@ -2,11 +2,11 @@
   <h1>{{ msg }}</h1>
 
   <label>
-    <input type="checkbox" v-model="useScriptSetup" /> Use
+    <input type="checkbox" v-model="useScriptSetup"> Use
     <code>&lt;script setup&gt;</code>
   </label>
   <label>
-    <input type="checkbox" v-model="useTsPlugin" /> Provide types for
+    <input type="checkbox" v-model="useTsPlugin"> Provide types for
     <code>*.vue</code> imports
   </label>
 
@@ -31,13 +31,13 @@
   </p>
   <p v-if="useTsPlugin">
     tsconfig setup:
-    <br />1. Install and add
+    <br>1. Install and add
     <code>@vuex/typescript-plugin-vue</code> to tsconfig plugins
-    <br />2. Delete shims-vue.d.ts
-    <br />3. Open
+    <br>2. Delete shims-vue.d.ts
+    <br>3. Open
     <code>src/main.ts</code> in VSCode
-    <br />4. Open VSCode command input
-    <br />5. Search and run "Select TypeScript version" -> "Use workspace version"
+    <br>4. Open VSCode command input
+    <br>5. Search and run "Select TypeScript version" -> "Use workspace version"
   </p>
   <button @click="count++">count is: {{ count }}</button>
   <p>
@@ -52,9 +52,9 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent } from "vue";
 export default defineComponent({
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
     msg: {
       type: String,
@@ -62,12 +62,12 @@ export default defineComponent({
     }
   },
   setup: () => {
-    const count = ref(0)
+    const count = ref(0);
     const useScriptSetup = ref(false);
     const useTsPlugin = ref(false);
-    return { count, useScriptSetup, useTsPlugin }
+    return { count, useScriptSetup, useTsPlugin };
   }
-})
+});
 </script>
 
 <style scoped>
