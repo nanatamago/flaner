@@ -1,0 +1,23 @@
+[
+  {
+    "category": "ポートフォリオ",
+    "title": "flaner",
+    "date": "2021.02",
+    "image": "src/assets/images/flaner.png",
+    "outline": "自分を表現できるデザインで、かつ最も馴染みのあるツールやスキルを使用して作成。増えていくであろうコンテンツに対してスクロールに応じて背景色が変わるなどわくわくを追加。",
+    "skills": ["フロントエンド : Vue.js", "デザイン : Sketch"],
+    "link": "#"
+  },
+  {
+    "category": "ブログ",
+    "title": "peachy",
+    "date": "2021.01",
+    "image": "src/assets/images/drnumbers.png",
+    "outline": "Reactベース静的サイトジェネレータGatsbyで作成、firebaseでデプロイ。海外サービスのリリースノートが好きなのでリリースノートを用意し改良を施す時に更新。",
+    "skills": [
+      "フロントエンド : React（Gatsby）+ TypeScript",
+      "デザイン : Figma"
+    ],
+    "link": ""
+  }
+]
