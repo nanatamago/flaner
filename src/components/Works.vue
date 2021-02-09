@@ -1,6 +1,6 @@
 <template>
   <div class="works">
-    <h2 class="works__headline">WORKS</h2>
+    <h2 class="works__heading">works</h2>
     <ul class="works__list">
       <li v-for="work in works" :key="work" class="works__item">
         <div class="works__thumbnail">
@@ -14,11 +14,17 @@
           </div>
           <div class="works__outline">{{ work.outline }}</div>
           <div class="works__skill worksSkill">
-            <ul v-for="skill in work.skills" :key="skill" class="worksSkill__list">
-              <li class="worksSkill__item">{{ skill }}</li>
+            <ul class="worksSkill__list">
+              <li v-for="skill in work.skills" :key="skill" class="worksSkill__item">{{ skill }}</li>
             </ul>
           </div>
-          <a v-if="work.link" class="works__link" :href="work.link">{{ work.title }}を見にいく</a>
+          <a
+            v-if="work.link"
+            class="works__link"
+            :href="work.link"
+            target="_blank"
+            rel="noopener"
+          >{{ work.title }}を見にいく</a>
         </div>
       </li>
     </ul>
@@ -46,22 +52,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Quattrocento&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .works {
   margin-top: 160px;
   padding: 0 24px;
-  &__headline {
-    color: #898989;
-    font-family: "Quattrocento", serif;
-    font-size: 32px;
-    letter-spacing: 8.89px;
+  &__heading {
+    display: inline-block;
+    font-family: "Amiri", serif;
+    font-size: 24px;
+    font-weight: 200;
+    line-height: 1.3;
+    letter-spacing: 6px;
+    border-bottom: 1px solid #575757;
   }
   &__item {
     display: flex;
     position: relative;
-    margin-top: 80px;
+    margin-top: 160px;
     color: #ffffff;
     justify-content: flex-end;
+    &:first-child {
+      margin-top: 40px;
+    }
   }
   &__thumbnail {
     position: absolute;
@@ -70,14 +82,14 @@ export default defineComponent({
   }
   &__image {
     display: block;
-    width: 50vw;
-    height: calc(50vw / 1.67);
+    width: 48vw;
+    height: calc(48vw / 1.67);
     object-fit: cover;
   }
   &__contents {
     width: 35vw;
     z-index: 10;
-    padding-top: 165px;
+    padding-top: calc(48vw / 1.67 / 3);
   }
   &__category {
     display: block;
@@ -85,10 +97,10 @@ export default defineComponent({
     letter-spacing: 2.93px;
   }
   &__title {
-    font-family: "Georgia", serif;
-    font-size: 4em;
+    font-family: "Times New Roman", serif;
+    font-size: 40px;
     font-weight: bold;
-    letter-spacing: 8.5px;
+    letter-spacing: 6.8px;
   }
   &__date {
     display: block;
@@ -97,43 +109,43 @@ export default defineComponent({
     letter-spacing: 2.57px;
   }
   &__outline {
-    font-size: 18px;
-    margin-top: 40px;
-    line-height: 1.33;
-    letter-spacing: 3.3px;
+    margin-top: 32px;
+    line-height: 1.5;
+    letter-spacing: 2.93px;
   }
   &__link {
     display: block;
     position: relative;
-    width: 35vw;
+    width: 216px;
     margin-top: 32px;
+    padding: 0 24px;
     color: #ffffff;
-    font-size: 18px;
-    line-height: 63px;
+    line-height: 48px;
     letter-spacing: 3.3px;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     transition: 0.3s;
     border: solid 1px #ffffff;
+    box-sizing: border-box;
     &::before {
       display: block;
       content: "";
       position: absolute;
-      top: 25px;
-      right: 24px;
-      width: 14px;
-      height: 14px;
+      top: 20px;
+      right: 16px;
+      width: 8px;
+      height: 8px;
       transition: 0.3s;
       transform: rotate(-45deg);
       border-right: solid 1px #ffffff;
       border-bottom: solid 1px #ffffff;
     }
     &:hover {
-      color: #575757;
+      color: #d1c1b7;
       background: #ffffff;
       &::before {
-        border-right: solid 1px #575757;
-        border-bottom: solid 1px #575757;
+        border-right: solid 1px #d1c1b7;
+        border-bottom: solid 1px #d1c1b7;
       }
     }
   }
@@ -141,11 +153,11 @@ export default defineComponent({
 
 .worksSkill {
   &__list {
-    margin-top: 40px;
+    margin-top: 16px;
     list-style-type: none;
   }
   &__item {
-    margin-top: 8px;
+    margin-top: 4px;
     letter-spacing: 3.3px;
     &:first-child {
       margin-top: 0;
