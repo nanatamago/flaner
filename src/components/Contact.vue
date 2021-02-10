@@ -53,7 +53,6 @@ export default defineComponent({
 @import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .contact {
   margin-top: 160px;
-  padding: 0 24px;
   &__heading {
     display: inline-block;
     font-family: "Amiri", serif;
@@ -64,17 +63,21 @@ export default defineComponent({
     border-bottom: 1px solid #575757;
   }
   &__container {
-    margin-top: 40px;
+    margin: 40px 0 0 0;
   }
   &__list {
-    display: flex;
     list-style-type: none;
+    @media screen and (min-width: 50em) {
+      display: flex;
+    }
   }
   &__item {
     display: flex;
-    margin-left: 40px;
-    &:first-child {
-      margin-left: 0;
+    @media screen and (min-width: 50em) {
+      margin-left: 40px;
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
   &__link {

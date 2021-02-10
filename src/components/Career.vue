@@ -41,7 +41,6 @@ export default defineComponent({
 @import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .career {
   margin-top: 160px;
-  padding: 0 24px;
   &__heading {
     display: inline-block;
     font-family: "Amiri", serif;
@@ -52,7 +51,7 @@ export default defineComponent({
     border-bottom: 1px solid #575757;
   }
   &__container {
-    margin-top: 40px;
+    margin: 40px 0 0 24px;
   }
   &__list {
     list-style-type: none;
@@ -60,18 +59,20 @@ export default defineComponent({
   &__item {
     display: flex;
     margin-top: 24px;
+    align-items: center;
     &:first-child {
       margin-top: 0;
     }
   }
   &__term {
     display: block;
-    width: 146px;
-    font-weight: bold;
+    width: 128px;
+    font-size: 13px;
+    font-weight: 700;
     letter-spacing: 1.96px;
   }
   &__detail {
-    margin-left: 56px;
+    margin-left: 24px;
     letter-spacing: 1.51px;
     flex: 1;
   }

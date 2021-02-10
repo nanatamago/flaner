@@ -18,27 +18,41 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .mainvisual {
-  height: 85vh;
+  height: 75vh;
   font-size: 12px;
-  background: url("../assets/images/mv.jpg") no-repeat center bottom;
+  background: url("../assets/images/mv_sp.jpg") no-repeat center top;
   background-size: cover;
+  @media screen and (min-width: 50em) {
+    height: 85vh;
+    background: url("../assets/images/mv.jpg") no-repeat center bottom;
+  }
   &__container {
     position: relative;
-    width: 85vw;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
+    @media screen and (min-width: 50em) {
+      width: 8vw;
+    }
   }
   &__logo {
     display: inline-block;
     position: absolute;
     top: 30vh;
-    left: 0;
+    left: 24px;
+    @media screen and (min-width: 50em) {
+      left: 0;
+    }
   }
   &__image {
     display: block;
-    width: 25vw;
-    height: calc(25vw / 1.83);
+    width: 50vw;
+    height: calc(50vw / 1.83);
     object-fit: cover;
+    @media screen and (min-width: 50em) {
+      width: 25vw;
+      height: calc(25vw / 1.83);
+    }
   }
 }
 </style>

@@ -55,7 +55,6 @@ export default defineComponent({
 @import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .works {
   margin-top: 160px;
-  padding: 0 24px;
   &__heading {
     display: inline-block;
     font-family: "Amiri", serif;
@@ -64,6 +63,9 @@ export default defineComponent({
     line-height: 1.3;
     letter-spacing: 6px;
     border-bottom: 1px solid #575757;
+  }
+  &__list {
+    margin: 40px 0 0 24px;
   }
   &__item {
     display: flex;
@@ -82,14 +84,14 @@ export default defineComponent({
   }
   &__image {
     display: block;
-    width: 48vw;
-    height: calc(48vw / 1.67);
+    width: 100%;
+    height: auto;
     object-fit: cover;
   }
   &__contents {
-    width: 35vw;
+    width: 48%;
+    padding-top: 150px;
     z-index: 10;
-    padding-top: calc(48vw / 1.67 / 3);
   }
   &__category {
     display: block;
@@ -98,9 +100,12 @@ export default defineComponent({
   }
   &__title {
     font-family: "Times New Roman", serif;
-    font-size: 40px;
+    font-size: 32px;
     font-weight: bold;
     letter-spacing: 6.8px;
+    @media screen and (min-width: 50em) {
+      font-size: 40px;
+    }
   }
   &__date {
     display: block;
@@ -110,13 +115,13 @@ export default defineComponent({
   }
   &__outline {
     margin-top: 32px;
-    line-height: 1.5;
+    line-height: 1.78;
     letter-spacing: 2.93px;
   }
   &__link {
     display: block;
     position: relative;
-    width: 216px;
+    width: 100%;
     margin-top: 32px;
     padding: 0 24px;
     color: #ffffff;
@@ -127,6 +132,9 @@ export default defineComponent({
     transition: 0.3s;
     border: solid 1px #ffffff;
     box-sizing: border-box;
+    @media screen and (min-width: 50em) {
+      width: 216px;
+    }
     &::before {
       display: block;
       content: "";
@@ -157,7 +165,9 @@ export default defineComponent({
     list-style-type: none;
   }
   &__item {
-    margin-top: 4px;
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1;
     letter-spacing: 3.3px;
     &:first-child {
       margin-top: 0;

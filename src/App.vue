@@ -71,16 +71,22 @@ body {
 }
 .container {
   color: #575757;
-  font-family: YuGothic, "Yu Gothic Medium", "Yu Gothic", -apple-system,
-    BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue,
-    Verdana, Meiryo, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "游ゴシック", 游ゴシック体,
+    YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, Verdana,
+    Meiryo, sans-serif;
   font-weight: normal;
   font-size: 16px;
   font-feature-settings: "palt";
   transition: 0.7s;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 }
 .contents {
-  width: 80vw;
-  margin: 0 auto;
+  padding: 0 24px;
+  @media screen and (min-width: 768px) {
+    width: 990px;
+    margin: 0 auto;
+  }
 }
 </style>
