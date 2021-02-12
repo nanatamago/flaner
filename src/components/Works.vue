@@ -5,10 +5,8 @@
       <li v-for="work in works" :key="work" class="works__item">
         <img class="works__image" :src="work.image" alt="flaner" loading="lazy">
         <div class="works__contents">
-          <div class="works__caption">
-            <h3 class="works__title">{{ work.title }}</h3>
-            <span class="works__date">{{ work.date }}</span>
-          </div>
+          <h3 class="works__title">{{ work.title }}</h3>
+          <span class="works__year">{{ work.year }}</span>
           <div v-if="work.colors" class="works__concept">
             <div v-for="colors in getColorList(work.colors)" :key="colors" class="works__colors">
               <span
@@ -119,46 +117,80 @@ export default defineComponent({
     font-family: "copperplate", sans-serif;
     font-size: 18px;
     font-weight: 300;
+    @media screen and (min-width: 600px) {
+      font-size: 24px;
+    }
+    @media screen and (min-width: 1024px) {
+      padding: 0px;
+    }
   }
   &__list {
     margin-top: 32px;
+    @media screen and (min-width: 600px) {
+      margin-top: 40px;
+    }
   }
   &__item {
-    color: #ffffff;
+    max-width: 375px;
     margin-top: 40px;
+    color: #ffffff;
+
     &:first-child {
       margin-top: 0;
+    }
+    @media screen and (min-width: 600px) {
+      max-width: 550px;
+      margin-top: 80px;
+    }
+    @media screen and (min-width: 1024px) {
+      display: flex;
+      max-width: 990px;
     }
   }
   &__image {
     display: block;
     width: 100%;
-    max-width: 375px;
-    max-height: 225px;
+    max-width: 550px;
+    height: calc(375px / 1.67);
     object-fit: cover;
+    @media screen and (min-width: 600px) {
+      height: calc(550px / 1.67);
+    }
   }
   &__contents {
     position: relative;
     width: 100%;
     z-index: 10;
-    margin-top: -10px;
+    margin-top: -12px;
     padding: 0 24px;
     line-height: 1;
+    @media screen and (min-width: 660px) {
+      margin-top: -16px;
+    }
+    @media screen and (min-width: 1024px) {
+      width: 30%;
+      padding-top: calc(550px / 1.67 / 2);
+      margin-left: -40px;
+    }
   }
   &__title {
     font-family: "copperplate", sans-serif;
     font-size: 22px;
     font-weight: 500;
     letter-spacing: 0.14em;
-    @media screen and (min-width: 50em) {
-      font-size: 40px;
+    @media screen and (min-width: 660px) {
+      font-size: 32px;
     }
   }
-  &__date {
+  &__year {
     display: block;
     margin-top: 4px;
     font-family: "copperplate", sans-serif;
     font-size: 12px;
+    @media screen and (min-width: 660px) {
+      margin-top: 6px;
+      font-size: 14px;
+    }
   }
   &__concept {
     position: absolute;
@@ -175,15 +207,26 @@ export default defineComponent({
   &__category {
     display: block;
     margin-top: 16px;
+    font-size: 14px;
+    @media screen and (min-width: 660px) {
+      margin-top: 24px;
+      font-size: 16px;
+    }
   }
   &__role {
     margin-top: 8px;
-    list-style-type: none;
+    font-size: 14px;
+
+    @media screen and (min-width: 660px) {
+      font-size: 16px;
+    }
   }
   &__skill {
     margin-left: 6px;
     line-height: 1;
-
+    @media screen and (min-width: 660px) {
+      margin-left: 6px;
+    }
     &:first-of-type {
       margin-left: 0;
     }
@@ -191,11 +234,13 @@ export default defineComponent({
   &__link {
     display: inline-block;
     position: relative;
-    margin-top: 16px;
+    margin-top: 32px;
     padding-right: 22px;
     color: #e36c6c;
     font-size: 12px;
     text-decoration: none;
+
+    letter-spacing: 0.22em;
     &::before {
       display: block;
       content: "";
@@ -205,7 +250,17 @@ export default defineComponent({
       width: 18px;
       height: 10px;
       background: url("../assets/images/arrow.svg") no-repeat;
-      background-size: cover;
+      background-size: contain;
+    }
+    @media screen and (min-width: 660px) {
+      padding-right: 32px;
+      font-size: 18px;
+      letter-spacing: 0.2em;
+      &::before {
+        top: 3px;
+        width: 22px;
+        height: calc(22px / 1.29);
+      }
     }
   }
 }

@@ -74,12 +74,14 @@ li {
   font-feature-settings: "palt";
   transition: 0.7s;
   letter-spacing: 0.14em;
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 600px) {
     font-size: 14px;
   }
 }
 .contents {
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 600px) {
+  }
+  @media screen and (min-width: 1024px) {
     width: 990px;
     margin: 0 auto;
   }

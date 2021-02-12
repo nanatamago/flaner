@@ -19,6 +19,16 @@ export default defineComponent({
   padding-bottom: 32px;
   font-size: 12px;
   text-align: center;
-  letter-spacing: 2.33px;
+  letter-spacing: 0.1em;
+  @media screen and (min-width: 600px) {
+    font-size: 14px;
+    letter-spacing: 0.18em;
+  }
+  @media screen and (min-width: 1024px) {
+    padding-bottom: 80px;
+  }
+  &__copyright {
+    display: inline-block;
+  }
 }
 </style>

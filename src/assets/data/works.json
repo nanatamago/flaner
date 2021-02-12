@@ -1,7 +1,7 @@
 [
   {
     "category": "ポートフォリオ",
-    "title": "Flaner",
+    "title": "flaner",
     "year": "2021",
     "image": "src/assets/images/flaner.webp",
     "skills": ["design", "frontend"],
@@ -10,7 +10,7 @@
   },
   {
     "category": "ブログ",
-    "title": "Peachy",
+    "title": "peachy",
     "year": "2021",
     "image": "src/assets/images/peachy.webp",
     "skills": ["design", "frontend"],
