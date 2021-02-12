@@ -2,81 +2,88 @@
   <div class="container" :style="{background: state.backgroundColor}">
     <Mainvisual/>
     <div class="contents">
-      <Profile/>
+      <Hello/>
       <Works ref="works"/>
+      <Footer/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, reactive } from "vue";
+import Hello from "./components/Hello.vue";
 import Mainvisual from "./components/Mainvisual.vue";
-import Profile from "./components/Profile.vue";
+import About from "./components/About.vue";
+import Career from "./components/Career.vue";
 import Works from "./components/Works.vue";
+import Contact from "./components/Contact.vue";
+import Footer from "./components/Footer.vue";
 import { ComponentNode } from "@vue/compiler-dom";
 
 export default defineComponent({
   name: "App",
   components: {
+    Hello,
     Mainvisual,
-    Profile,
-    Works
+    About,
+    Career,
+    Works,
+    Contact,
+    Footer
   },
   setup: () => {
-    const initialColor = "#F8F2DC";
-
+    const initialColor = "#d4d0bb";
     const state = reactive<{ backgroundColor: String }>({
       backgroundColor: initialColor
     });
-
     const works: any = ref<HTMLDivElement>();
     const client = works.value;
-
-    onMounted(() => {
-      const pTop = client.getBoundingClientRect();
-      console.log(pTop);
-    });
-    const getSpan = () => {
-      console.log(works.value);
-    };
-
     window.addEventListener("scroll", function() {
       let scroll = window.pageYOffset;
-      if (scroll < 1000) {
+      if (scroll < 700) {
         state.backgroundColor = initialColor;
-      } else if (scroll > 1000 && scroll < 3000) {
-        state.backgroundColor = "#D7C3BA";
-      } else if (scroll > 3000) {
-        state.backgroundColor = "#C4D3C2";
+      } else if (scroll > 700 && scroll < 1000) {
+        state.backgroundColor = "#d2c3bc";
+      } else if (scroll > 1000) {
+        state.backgroundColor = "#b9cbce";
       }
-      console.log(scroll);
-      console.log(state.backgroundColor);
     });
-    return { state, getSpan };
+    return { state };
   }
 });
 </script>
 
 <style lang="scss">
 @import "./assets/css/reset.css";
+@import url("https://use.typekit.net/fhe2ech.css");
+/* IE */
+_:lang(x)::-ms-backdrop,
+body {
+  font-family: "Segoe UI", Meiryo, sans-serif;
+}
+li {
+  list-style-type: none;
+}
 .container {
-  color: #575757;
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
-    "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic",
-    Verdana, Meiryo, sans-serif;
-  /* IE */
-  _:lang(x)::-ms-backdrop,
-  body {
-    font-family: "Segoe UI", Meiryo, sans-serif;
-  }
-  font-size: 14px;
-
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "游ゴシック", 游ゴシック体,
+    YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, Verdana,
+    Meiryo, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
   font-feature-settings: "palt";
-  transition: 1s;
+  transition: 0.7s;
+  letter-spacing: 0.14em;
+  @media screen and (min-width: 600px) {
+    font-size: 14px;
+  }
 }
 .contents {
-  width: 85vw;
-  margin: 0 auto;
-  padding-bottom: 160px;
+  @media screen and (min-width: 600px) {
+  }
+  @media screen and (min-width: 1024px) {
+    width: 990px;
+    margin: 0 auto;
+  }
 }
 </style>

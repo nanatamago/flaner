@@ -1,9 +1,7 @@
 <template>
   <div class="mainvisual">
     <div class="mainvisual__container">
-      <div class="mainvisual__logo">
-        <img class="mainvisual__image" src="../assets/images/logo.png" alt="flaner">
-      </div>
+      <img class="mainvisual__image" src="../assets/images/logo.png" alt="flaner">
     </div>
   </div>
 </template>
@@ -18,27 +16,42 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .mainvisual {
-  height: 85vh;
+  position: relative;
+  height: 75vh;
   font-size: 12px;
-  background: url("../assets/images/mv.jpg") no-repeat center bottom;
+  background: url("../assets/images/mv_sp.jpg") no-repeat center top;
   background-size: cover;
-  &__container {
-    position: relative;
-    width: 85vw;
-    height: 100%;
-    margin: 0 auto;
+  @media screen and (min-width: 600px) {
+    height: 80vh;
+    background: url("../assets/images/mv.jpg") no-repeat center bottom;
+    background-size: cover;
   }
-  &__logo {
-    display: inline-block;
+  &__container {
     position: absolute;
-    top: 30vh;
+
     left: 0;
+    bottom: 20%;
+    padding-left: 24px;
+    @media screen and (min-width: 600px) {
+      max-width: 550px;
+      left: 0;
+      bottom: 30%;
+      padding-left: 64px;
+    }
+    @media screen and (min-width: 1024px) {
+      width: 100%;
+      left: 10vw;
+    }
   }
   &__image {
     display: block;
-    width: 25vw;
-    height: calc(25vw / 1.83);
+    width: 50vw;
+    height: calc(50vw / 1.83);
     object-fit: cover;
+    @media screen and (min-width: 600px) {
+      width: 30vw;
+      height: calc(30vw / 1.83);
+    }
   }
 }
 </style>
