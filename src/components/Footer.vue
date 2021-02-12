@@ -15,8 +15,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .footer {
-  margin-top: 160px;
+  margin-top: 80px;
   padding-bottom: 32px;
+  font-size: 12px;
   text-align: center;
   letter-spacing: 2.33px;
 }

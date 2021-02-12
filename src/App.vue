@@ -40,11 +40,11 @@ export default defineComponent({
     const client = works.value;
     window.addEventListener("scroll", function() {
       let scroll = window.pageYOffset;
-      if (scroll < 1000) {
+      if (scroll < 700) {
         state.backgroundColor = initialColor;
-      } else if (scroll > 1000 && scroll < 1500) {
+      } else if (scroll > 700 && scroll < 1000) {
         state.backgroundColor = "#d2c3bc";
-      } else if (scroll > 1500) {
+      } else if (scroll > 1000) {
         state.backgroundColor = "#b9cbce";
       }
     });
@@ -61,15 +61,19 @@ _:lang(x)::-ms-backdrop,
 body {
   font-family: "Segoe UI", Meiryo, sans-serif;
 }
+li {
+  list-style-type: none;
+}
 .container {
   color: #ffffff;
-  font-family: "copperplate", -apple-system, BlinkMacSystemFont, "游ゴシック",
-    游ゴシック体, YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue,
-    Verdana, Meiryo, sans-serif;
-  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "游ゴシック", 游ゴシック体,
+    YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, Verdana,
+    Meiryo, sans-serif;
+  font-weight: 300;
   font-size: 16px;
   font-feature-settings: "palt";
   transition: 0.7s;
+  letter-spacing: 0.14em;
   @media screen and (max-width: 768px) {
     font-size: 14px;
   }

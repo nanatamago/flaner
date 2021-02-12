@@ -1,9 +1,7 @@
 <template>
   <div class="mainvisual">
     <div class="mainvisual__container">
-      <div class="mainvisual__logo">
-        <img class="mainvisual__image" src="../assets/images/logo.png" alt="flaner">
-      </div>
+      <img class="mainvisual__image" src="../assets/images/logo.png" alt="flaner">
     </div>
   </div>
 </template>
@@ -35,17 +33,11 @@ export default defineComponent({
       width: 8vw;
     }
   }
-  &__logo {
+  &__image {
     display: inline-block;
     position: absolute;
-    top: 30vh;
     left: 24px;
-    @media screen and (min-width: 50em) {
-      left: 0;
-    }
-  }
-  &__image {
-    display: block;
+    bottom: 20%;
     width: 50vw;
     height: calc(50vw / 1.83);
     object-fit: cover;

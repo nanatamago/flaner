@@ -3,28 +3,33 @@
     <h2 class="works__heading">works</h2>
     <ul class="works__list">
       <li v-for="work in works" :key="work" class="works__item">
-        <div class="works__thumbnail">
-          <img class="works__image" :src="work.image" alt="flaner" loading="lazy">
-        </div>
+        <img class="works__image" :src="work.image" alt="flaner" loading="lazy">
         <div class="works__contents">
           <div class="works__caption">
-            <span class="works__category">{{ work.category }}</span>
             <h3 class="works__title">{{ work.title }}</h3>
             <span class="works__date">{{ work.date }}</span>
           </div>
-          <div class="works__outline">{{ work.outline }}</div>
-          <div class="works__skill worksSkill">
-            <ul class="worksSkill__list">
-              <li v-for="skill in work.skills" :key="skill" class="worksSkill__item">{{ skill }}</li>
-            </ul>
+          <div v-if="work.colors" class="works__concept">
+            <div v-for="colors in getColorList(work.colors)" :key="colors" class="works__colors">
+              <span
+                v-for="color in colors"
+                :key="color"
+                class="works__cube"
+                :style="{background: color}"
+              ></span>
+            </div>
           </div>
+          <span class="works__category">{{ work.category }}</span>
+          <p class="works__role">
+            <span class="works__skill" v-for="skill in work.skills" :key="skill">/ {{ skill }}</span>
+          </p>
           <a
             v-if="work.link"
-            class="works__link"
             :href="work.link"
+            class="works__link"
             target="_blank"
             rel="noopener"
-          >{{ work.title }}を見にいく</a>
+          >View website</a>
         </div>
       </li>
     </ul>
@@ -43,9 +48,63 @@ export default defineComponent({
       axios
         .get("src/assets/data/works.json")
         .then(response => (works.value = response.data));
+      return {
+        works
+      };
     });
+    /**
+     * 配列の値をシャッフル
+     * @type {array}
+     */
+    const shuffleValue = (array: any) => {
+      let shuffledValue = array.slice();
+      for (let i = shuffledValue.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledValue[i], shuffledValue[j]] = [
+          shuffledValue[j],
+          shuffledValue[i]
+        ];
+      }
+      return shuffledValue;
+    };
+    /**
+     * 配列からランダムで値を選択
+     * @return {array}
+     */
+    const pickRandomValue = (array: any, number: number) => {
+      let pickedArray = [];
+      for (let i = 0; i < number; i++) {
+        let arrayIndex = Math.floor(Math.random() * array.length);
+        pickedArray[i] = array[arrayIndex];
+        array.splice(arrayIndex, 1);
+      }
+      return pickedArray;
+    };
+    /**
+     * シャッフルされた値を２個入りの配列に編成
+     * @type {array}
+     */
+    const arrangeByNumber = (array: any, number: number) => {
+      const length = Math.ceil(array.length / number);
+      return new Array(length)
+        .fill()
+        .map((_: any, i: any) => array.slice(i * number, (i + 1) * number));
+    };
+    /**
+     * コンセプトカラーのリストを作成
+     * @type {array}
+     */
+    const getColorList = (array: any) => {
+      let colorList = arrangeByNumber(
+        pickRandomValue(shuffleValue(array), 4),
+        2
+      );
+      return colorList;
+    };
+
     return {
-      works
+      works,
+      getColorList
     };
   }
 });
@@ -54,123 +113,99 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .works {
-  margin-top: 160px;
+  margin-top: 80px;
   &__heading {
-    display: inline-block;
-    font-family: "Amiri", serif;
-    font-size: 24px;
-    font-weight: 200;
-    line-height: 1.3;
-    letter-spacing: 6px;
-    border-bottom: 1px solid #575757;
+    padding: 0 24px;
+    font-family: "copperplate", sans-serif;
+    font-size: 18px;
+    font-weight: 300;
   }
   &__list {
-    margin: 40px 0 0 24px;
+    margin-top: 32px;
   }
   &__item {
-    display: flex;
-    position: relative;
-    margin-top: 160px;
     color: #ffffff;
-    justify-content: flex-end;
+    margin-top: 40px;
     &:first-child {
-      margin-top: 40px;
+      margin-top: 0;
     }
-  }
-  &__thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   &__image {
     display: block;
     width: 100%;
-    height: auto;
+    max-width: 375px;
+    max-height: 225px;
     object-fit: cover;
   }
   &__contents {
-    width: 48%;
-    padding-top: 150px;
+    position: relative;
+    width: 100%;
     z-index: 10;
-  }
-  &__category {
-    display: block;
-    font-size: 16px;
-    letter-spacing: 2.93px;
+    margin-top: -10px;
+    padding: 0 24px;
+    line-height: 1;
   }
   &__title {
-    font-family: "Times New Roman", serif;
-    font-size: 32px;
-    font-weight: bold;
-    letter-spacing: 6.8px;
+    font-family: "copperplate", sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     @media screen and (min-width: 50em) {
       font-size: 40px;
     }
   }
   &__date {
     display: block;
-    margin-top: 8px;
-    font-size: 14px;
-    letter-spacing: 2.57px;
+    margin-top: 4px;
+    font-family: "copperplate", sans-serif;
+    font-size: 12px;
   }
-  &__outline {
-    margin-top: 32px;
-    line-height: 1.78;
-    letter-spacing: 2.93px;
+  &__concept {
+    position: absolute;
+    right: 24px;
+  }
+  &__colors {
+    display: flex;
+  }
+  &__cube {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+  &__category {
+    display: block;
+    margin-top: 16px;
+  }
+  &__role {
+    margin-top: 8px;
+    list-style-type: none;
+  }
+  &__skill {
+    margin-left: 6px;
+    line-height: 1;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
   }
   &__link {
-    display: block;
+    display: inline-block;
     position: relative;
-    width: 100%;
-    margin-top: 32px;
-    padding: 0 24px;
-    color: #ffffff;
-    line-height: 48px;
-    letter-spacing: 3.3px;
-    text-align: left;
+    margin-top: 16px;
+    padding-right: 22px;
+    color: #e36c6c;
+    font-size: 12px;
     text-decoration: none;
-    transition: 0.3s;
-    border: solid 1px #ffffff;
-    box-sizing: border-box;
-    @media screen and (min-width: 50em) {
-      width: 216px;
-    }
     &::before {
       display: block;
       content: "";
       position: absolute;
-      top: 20px;
-      right: 16px;
-      width: 8px;
-      height: 8px;
-      transition: 0.3s;
-      transform: rotate(-45deg);
-      border-right: solid 1px #ffffff;
-      border-bottom: solid 1px #ffffff;
-    }
-    &:hover {
-      color: #d1c1b7;
-      background: #ffffff;
-      &::before {
-        border-right: solid 1px #d1c1b7;
-        border-bottom: solid 1px #d1c1b7;
-      }
-    }
-  }
-}
-
-.worksSkill {
-  &__list {
-    margin-top: 16px;
-    list-style-type: none;
-  }
-  &__item {
-    margin-top: 6px;
-    font-size: 14px;
-    line-height: 1;
-    letter-spacing: 3.3px;
-    &:first-child {
-      margin-top: 0;
+      top: 1px;
+      right: 0;
+      width: 18px;
+      height: 10px;
+      background: url("../assets/images/arrow.svg") no-repeat;
+      background-size: cover;
     }
   }
 }
