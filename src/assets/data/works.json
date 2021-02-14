@@ -1,17 +1,17 @@
 [
   {
-    "category": "ポートフォリオ",
     "title": "flaner",
     "year": "2021",
+    "category": "portfolio",
     "image": "src/assets/images/flaner.webp",
     "skills": ["design", "frontend"],
     "link": "https://flaner.today/",
     "colors": ["#d4d0bb", "#ffffff", "#e36c6c", "#d2c3bc", "#b9cbce"]
   },
   {
-    "category": "ブログ",
     "title": "peachy",
     "year": "2021",
+    "category": "blog",
     "image": "src/assets/images/peachy.webp",
     "skills": ["design", "frontend"],
     "link": "https://peachy.icu/",

@@ -1,14 +1,18 @@
 <template>
-  <div class="works">
+  <div class="works" ref="worksElement">
     <h2 class="works__heading">works</h2>
     <ul class="works__list">
-      <li v-for="work in works" :key="work" class="works__item">
-        <img class="works__image" :src="work.image" alt="flaner" loading="lazy">
+      <li v-for="worksItem in worksList" :key="worksItem" class="works__item">
+        <img class="works__image" :src="worksItem.image" alt="flaner" loading="lazy">
         <div class="works__contents">
-          <h3 class="works__title">{{ work.title }}</h3>
-          <span class="works__year">{{ work.year }}</span>
-          <div v-if="work.colors" class="works__concept">
-            <div v-for="colors in getColorList(work.colors)" :key="colors" class="works__colors">
+          <h3 class="works__title">{{ worksItem.title }}</h3>
+          <span class="works__year">{{ worksItem.year }}</span>
+          <div v-if="worksItem.colors" class="works__concept">
+            <div
+              v-for="colors in getColorList(worksItem.colors)"
+              :key="colors"
+              class="works__colors"
+            >
               <span
                 v-for="color in colors"
                 :key="color"
@@ -17,13 +21,13 @@
               ></span>
             </div>
           </div>
-          <span class="works__category">{{ work.category }}</span>
+          <span class="works__category">{{ worksItem.category }}</span>
           <p class="works__role">
-            <span class="works__skill" v-for="skill in work.skills" :key="skill">/ {{ skill }}</span>
+            <span class="works__skill" v-for="skill in worksItem.skills" :key="skill">/ {{ skill }}</span>
           </p>
           <a
-            v-if="work.link"
-            :href="work.link"
+            v-if="worksItem.link"
+            :href="worksItem.link"
             class="works__link"
             target="_blank"
             rel="noopener"
@@ -35,21 +39,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, onUpdated } from "vue";
 import axios from "axios";
 
 export default defineComponent({
   name: "Works",
-  setup: () => {
-    let works: any = ref();
+  setup: (props, { emit }) => {
+    let worksList: any = ref();
+    const worksElement = ref<HTMLDivElement | any>();
+
     onMounted(() => {
       axios
         .get("src/assets/data/works.json")
-        .then(response => (works.value = response.data));
+        .then(response => (worksList.value = response.data));
       return {
-        works
+        worksList
       };
     });
+
+    // コンポーネントの内容が用意されてから実行
+    onUpdated(() => {
+      const offsetY: number = Math.floor(
+        window.pageYOffset + worksElement.value.getBoundingClientRect().top
+      );
+      const height: number = worksElement.value.clientHeight;
+      emit("worksRect", offsetY, height);
+    });
+
     /**
      * 配列の値をシャッフル
      * @type {array}
@@ -101,7 +117,8 @@ export default defineComponent({
     };
 
     return {
-      works,
+      worksList,
+      worksElement,
       getColorList
     };
   }
