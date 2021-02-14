@@ -3,7 +3,7 @@
     <Mainvisual/>
     <div class="contents">
       <Hello/>
-      <Works ref="works"/>
+      <Works @worksRect="getWorksRect"/>
       <Footer/>
     </div>
   </div>
@@ -33,22 +33,32 @@ export default defineComponent({
   },
   setup: () => {
     const initialColor = "#d4d0bb";
-    const state = reactive<{ backgroundColor: String }>({
-      backgroundColor: initialColor
+    const state = reactive<{
+      backgroundColor: String;
+      rectOffsetY: number;
+      rectSwitchPoint: number;
+    }>({
+      backgroundColor: initialColor,
+      rectOffsetY: 0,
+      rectSwitchPoint: 0
     });
-    const works: any = ref<HTMLDivElement>();
-    const client = works.value;
+
+    const getWorksRect = (offsetY: number, height: number): void => {
+      state.rectOffsetY = offsetY;
+      state.rectSwitchPoint = offsetY + height / 2;
+    };
+
     window.addEventListener("scroll", function() {
       let scroll = window.pageYOffset;
-      if (scroll < 700) {
+      if (scroll < state.rectOffsetY) {
         state.backgroundColor = initialColor;
-      } else if (scroll > 700 && scroll < 1000) {
+      } else if (scroll > state.rectOffsetY && scroll < state.rectSwitchPoint) {
         state.backgroundColor = "#d2c3bc";
-      } else if (scroll > 1000) {
+      } else if (scroll > state.rectSwitchPoint) {
         state.backgroundColor = "#b9cbce";
       }
     });
-    return { state };
+    return { state, getWorksRect };
   }
 });
 </script>
@@ -56,6 +66,13 @@ export default defineComponent({
 <style lang="scss">
 @import "./assets/css/reset.css";
 @import url("https://use.typekit.net/fhe2ech.css");
+@font-face {
+  font-family: "YakuHanJP";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/font/YakuHanJP-Regular.woff2") format("woff2"),
+    url("./assets/font/YakuHanJP-Regular.woff") format("woff");
+}
 /* IE */
 _:lang(x)::-ms-backdrop,
 body {
@@ -66,9 +83,9 @@ li {
 }
 .container {
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "游ゴシック", 游ゴシック体,
-    YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, Verdana,
-    Meiryo, sans-serif;
+  font-family: "YakuHanJP", -apple-system, BlinkMacSystemFont, "游ゴシック",
+    游ゴシック体, YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue,
+    Verdana, Meiryo, sans-serif;
   font-weight: 300;
   font-size: 16px;
   font-feature-settings: "palt";
@@ -79,8 +96,6 @@ li {
   }
 }
 .contents {
-  @media screen and (min-width: 600px) {
-  }
   @media screen and (min-width: 1024px) {
     width: 990px;
     margin: 0 auto;

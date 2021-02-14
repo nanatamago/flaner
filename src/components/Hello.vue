@@ -2,7 +2,7 @@
   <div class="hello">
     <p class="hello__text">
       I’m Nana Takahashi,
-      <br>a web designer
+      <br>a designer
       <br>developer
     </p>
     <p class="hello__button">about me</p>
