@@ -37,7 +37,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .about {
   margin-top: 80px;
   &__heading {
