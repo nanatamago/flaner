@@ -18,7 +18,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .hello {
   margin-top: 40px;
   padding: 0 24px;

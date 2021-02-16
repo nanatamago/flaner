@@ -19,11 +19,11 @@ export default defineComponent({
   position: relative;
   height: 75vh;
   font-size: 12px;
-  background: url("../assets/images/mv_sp.jpg") no-repeat center top;
+  background: url("../assets/images/mv_sp.webp") no-repeat center top;
   background-size: cover;
   @media screen and (min-width: 600px) {
     height: 80vh;
-    background: url("../assets/images/mv.jpg") no-repeat center bottom;
+    background: url("../assets/images/mv.webp") no-repeat center bottom;
     background-size: cover;
   }
   &__container {

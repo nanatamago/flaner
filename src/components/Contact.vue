@@ -50,7 +50,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .contact {
   margin-top: 160px;
   &__heading {
