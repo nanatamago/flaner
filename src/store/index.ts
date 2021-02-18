@@ -10,10 +10,14 @@ export const StateKey: InjectionKey<Store<GlobalState>> = Symbol();
 
 const store = createStore({
   state: {
+    backgroundColor: "#d4d0bb",
     offsetY: 0,
     height: 0
   },
   mutations: {
+    setBackgroundColor(state, backgroundColor) {
+      state.backgroundColor = backgroundColor;
+    },
     setWorksRect(state, { offsetY, height }) {
       state.offsetY = offsetY;
       state.height = height;

@@ -61,11 +61,10 @@ import { useStore } from "vuex";
 
 export default defineComponent({
   name: "WorksList",
-  setup: props => {
+  setup: () => {
     let worksList: any = ref();
     const worksElement = ref<HTMLDivElement | any>();
     const store = useStore();
-
     const state = reactive<{
       isActive: String;
     }>({
@@ -73,9 +72,9 @@ export default defineComponent({
     });
 
     const styles = computed<Object>(() => ({
-      "--color": props.background,
+      "--color": store.state.backgroundColor,
       "--background": "#ffffff",
-      "--border": `1px solid ${props.background}`
+      "--border": `1px solid ${store.state.backgroundColor}`
     }));
 
     onMounted(() => {

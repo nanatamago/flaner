@@ -28,14 +28,17 @@ export default defineComponent({
   name: "Works",
   components: { Mainvisual, Hello, WorksList, Footer },
   setup: () => {
-    const initialColor = "#d4d0bb";
     const store = useStore();
     const state = reactive<{
-      backgroundColor: String;
+      backgroundColor: ComputedRef<String>;
       rectOffsetY: ComputedRef<Number>;
       rectSwitchPoint: ComputedRef<Number>;
     }>({
-      backgroundColor: initialColor,
+      backgroundColor: computed(
+        (): String => {
+          return store.state.backgroundColor;
+        }
+      ),
       rectOffsetY: computed(
         (): Number => {
           return store.state.offsetY;
@@ -51,11 +54,11 @@ export default defineComponent({
     window.addEventListener("scroll", function() {
       let scroll = window.pageYOffset;
       if (scroll < state.rectOffsetY) {
-        state.backgroundColor = initialColor;
+        store.commit("setBackgroundColor", "#d4d0bb");
       } else if (scroll > state.rectOffsetY && scroll < state.rectSwitchPoint) {
-        state.backgroundColor = "#d2c3bc";
+        store.commit("setBackgroundColor", "#d2c3bc");
       } else if (scroll > state.rectSwitchPoint) {
-        state.backgroundColor = "#b9cbce";
+        store.commit("setBackgroundColor", "#b9cbce");
       }
     });
     return { state };
