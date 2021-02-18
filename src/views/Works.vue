@@ -65,6 +65,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .works {
+  transition: 0.7s;
   &__container {
     @media screen and (min-width: 1024px) {
       width: 990px;

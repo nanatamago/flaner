@@ -36,7 +36,6 @@ body {
   font-weight: 300;
   font-size: 14px;
   font-feature-settings: "palt";
-  transition: 0.7s;
   letter-spacing: 0.14em;
   @media screen and (min-width: 600px) {
     font-size: 16px;

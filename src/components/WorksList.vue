@@ -35,6 +35,11 @@
             class="worksList__link"
             target="_blank"
             rel="noopener"
+            :style="[state.isActive=worksItem.title ? styles: '']"
+            @mouseover="state.isActive=worksItem.title"
+            @mouseleave="state.isActive=''"
+            @touchstart="state.isActive=worksItem.title"
+            @touchend="state.isActive=''"
           >View website</a>
         </div>
       </li>
@@ -43,7 +48,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUpdated } from "vue";
+import {
+  defineComponent,
+  reactive,
+  ref,
+  onMounted,
+  onUpdated,
+  computed
+} from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
 
@@ -53,6 +65,18 @@ export default defineComponent({
     let worksList: any = ref();
     const worksElement = ref<HTMLDivElement | any>();
     const store = useStore();
+
+    const state = reactive<{
+      isActive: String;
+    }>({
+      isActive: ""
+    });
+
+    const styles = computed<Object>(() => ({
+      "--color": props.background,
+      "--background": "#ffffff",
+      "--border": `1px solid ${props.background}`
+    }));
 
     onMounted(() => {
       axios
@@ -125,7 +149,9 @@ export default defineComponent({
     return {
       worksList,
       worksElement,
-      getColorList
+      getColorList,
+      state,
+      styles
     };
   }
 });
@@ -191,6 +217,7 @@ export default defineComponent({
     }
     @media screen and (min-width: 1024px) {
       width: 30%;
+      padding: 0;
       padding-top: calc(550px / 1.67 / 2);
       margin-left: -40px;
     }
@@ -256,33 +283,44 @@ export default defineComponent({
   &__link {
     display: inline-block;
     position: relative;
+    width: 240px;
     margin-top: 32px;
-    padding-right: 22px;
-    color: #e36c6c;
+    padding: 0 40px 0 16px;
+    color: #ffffff;
     font-size: 12px;
     text-decoration: none;
-
+    line-height: 44px;
     letter-spacing: 0.22em;
+    transition: 0.3s;
+    border: 1px solid #ffffff;
     &::before {
       display: block;
       content: "";
       position: absolute;
-      top: 1px;
-      right: 0;
-      width: 18px;
+      top: 50%;
+      right: 16px;
+      width: 10px;
       height: 10px;
-      background: url("../assets/images/arrow.svg") no-repeat;
-      background-size: contain;
+      margin-top: -4px;
+      transform: rotate(-45deg);
+      border-right: 1px solid #ffffff;
+      border-bottom: 1px solid #ffffff;
+    }
+    &:hover {
+      color: var(--color);
+      background: var(--background);
+      &::before {
+        border-right: var(--border);
+        border-bottom: var(--border);
+      }
     }
     @media screen and (min-width: 660px) {
       padding-right: 32px;
-      font-size: 18px;
+      font-size: 14px;
       letter-spacing: 0.2em;
-      &::before {
-        top: 3px;
-        width: 22px;
-        height: calc(22px / 1.29);
-      }
+    }
+    @media screen and (min-width: 1024px) {
+      line-height: 56px;
     }
   }
 }
