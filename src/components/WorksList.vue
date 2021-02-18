@@ -1,34 +1,38 @@
 <template>
-  <div class="works" ref="worksElement">
-    <h2 class="works__heading">works</h2>
-    <ul class="works__list">
-      <li v-for="worksItem in worksList" :key="worksItem" class="works__item">
-        <img class="works__image" :src="worksItem.image" alt="flaner" loading="lazy">
-        <div class="works__contents">
-          <h3 class="works__title">{{ worksItem.title }}</h3>
-          <span class="works__year">{{ worksItem.year }}</span>
-          <div v-if="worksItem.colors" class="works__concept">
+  <div class="worksList" ref="worksElement">
+    <h2 class="worksList__heading">works</h2>
+    <ul class="worksList__list">
+      <li v-for="worksItem in worksList" :key="worksItem" class="worksList__item">
+        <img class="worksList__image" :src="worksItem.image" alt="flaner" loading="lazy">
+        <div class="worksList__contents">
+          <h3 class="worksList__title">{{ worksItem.title }}</h3>
+          <span class="worksList__year">{{ worksItem.year }}</span>
+          <div v-if="worksItem.colors" class="worksList__concept">
             <div
               v-for="colors in getColorList(worksItem.colors)"
               :key="colors"
-              class="works__colors"
+              class="worksList__colors"
             >
               <span
                 v-for="color in colors"
                 :key="color"
-                class="works__cube"
+                class="worksList__cube"
                 :style="{background: color}"
               ></span>
             </div>
           </div>
-          <span class="works__category">{{ worksItem.category }}</span>
-          <p class="works__role">
-            <span class="works__skill" v-for="skill in worksItem.skills" :key="skill">/ {{ skill }}</span>
+          <span class="worksList__category">{{ worksItem.category }}</span>
+          <p class="worksList__role">
+            <span
+              class="worksList__skill"
+              v-for="skill in worksItem.skills"
+              :key="skill"
+            >/ {{ skill }}</span>
           </p>
           <a
             v-if="worksItem.link"
             :href="worksItem.link"
-            class="works__link"
+            class="worksList__link"
             target="_blank"
             rel="noopener"
           >View website</a>
@@ -41,12 +45,14 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUpdated } from "vue";
 import axios from "axios";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "Works",
-  setup: (props, { emit }) => {
+  name: "WorksList",
+  setup: props => {
     let worksList: any = ref();
     const worksElement = ref<HTMLDivElement | any>();
+    const store = useStore();
 
     onMounted(() => {
       axios
@@ -63,7 +69,7 @@ export default defineComponent({
         window.pageYOffset + worksElement.value.getBoundingClientRect().top
       );
       const height: number = worksElement.value.clientHeight;
-      emit("worksRect", offsetY, height);
+      store.commit("setWorksRect", { offsetY, height });
     });
 
     /**
@@ -126,7 +132,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.works {
+.worksList {
   margin-top: 80px;
   &__heading {
     padding: 0 24px;
