@@ -22,12 +22,8 @@
             </div>
           </div>
           <span class="worksList__category">{{ worksItem.category }}</span>
-          <p class="worksList__role">
-            <span
-              class="worksList__skill"
-              v-for="skill in worksItem.skills"
-              :key="skill"
-            >/ {{ skill }}</span>
+          <p class="worksList__roles">
+            <span class="worksList__role" v-for="role in worksItem.roles" :key="role">/ {{ role }}</span>
           </p>
           <a
             v-if="worksItem.link"
@@ -35,11 +31,11 @@
             class="worksList__link"
             target="_blank"
             rel="noopener"
-            :style="[state.isActive=worksItem.title ? styles: '']"
-            @mouseover="state.isActive=worksItem.title"
-            @mouseleave="state.isActive=''"
-            @touchstart="state.isActive=worksItem.title"
-            @touchend="state.isActive=''"
+            @mouseover="state.isActive = worksItem.title"
+            @mouseleave="state.isActive = ''"
+            @touchstart="state.isActive = worksItem.title"
+            @touchend="state.isActive = ''"
+            :style="[state.isActive === worksItem.title ? styles : '']"
           >View website</a>
         </div>
       </li>
@@ -261,7 +257,7 @@ export default defineComponent({
       font-size: 16px;
     }
   }
-  &__role {
+  &__roles {
     margin-top: 8px;
     font-size: 14px;
 
@@ -269,7 +265,7 @@ export default defineComponent({
       font-size: 16px;
     }
   }
-  &__skill {
+  &__role {
     margin-left: 6px;
     line-height: 1;
     @media screen and (min-width: 660px) {
