@@ -3,7 +3,7 @@
     <Mainvisual/>
     <div class="contents">
       <Hello/>
-      <Works @worksRect="getWorksRect"/>
+      <Works @worksRect="getWorksRect" :background="state.backgroundColor"/>
       <Footer/>
     </div>
   </div>
