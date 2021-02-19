@@ -6,7 +6,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {
+  defineComponent,
+  reactive,
+  watch,
+  onMounted,
+  computed,
+  ComputedRef
+} from "vue";
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
 
 import Header from "./components/Header.vue";
 
@@ -14,6 +23,57 @@ export default defineComponent({
   name: "App",
   components: {
     Header
+  },
+  setup: () => {
+    const store = useStore();
+    const router = useRouter();
+    const route = useRoute();
+
+    const state = reactive<{
+      position: Number;
+      mainvisualHeight: ComputedRef<Number>;
+    }>({
+      position: 0,
+      mainvisualHeight: computed(
+        (): Number => {
+          return store.state.mainvisualHeight;
+        }
+      )
+    });
+
+    document.onscroll = e => {
+      state.position =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      checkDisplayLogo();
+    };
+
+    onMounted(() => {
+      let initialPath = route.path;
+      store.commit("setCurrentRoutePath", initialPath);
+      checkDisplayLogo();
+    });
+
+    watch(
+      () => route.path,
+      path => {
+        store.commit("setCurrentRoutePath", path);
+        checkDisplayLogo();
+      }
+    );
+
+    const checkDisplayLogo = () => {
+      if (store.state.currentRoutePath !== "/") {
+        return store.commit("setDisplayHeaderLogo", true);
+      } else if (store.state.currentRoutePath === "/") {
+        if (state.position > store.state.mainvisualHeight) {
+          return store.commit("setDisplayHeaderLogo", true);
+        } else {
+          return store.commit("setDisplayHeaderLogo", false);
+        }
+      }
+    };
+
+    return state;
   }
 });
 </script>

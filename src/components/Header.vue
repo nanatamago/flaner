@@ -1,7 +1,10 @@
 <template>
   <header class="header">
     <div class="header__container">
-      <router-link class="header__logo" :to="{ name:'works'}">
+      <router-link
+        :class="[ state.isVisible ? 'header__logo--visible' : 'header__logo' ]"
+        :to="{ name:'works'}"
+      >
         <img class="header__image" src="../assets/images/logo.png" alt="flaner">
       </router-link>
       <nav>
@@ -19,10 +22,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive, computed, ComputedRef } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "Header"
+  name: "Header",
+  setup: () => {
+    const store = useStore();
+    const state = reactive<{
+      isVisible: ComputedRef<Boolean>;
+    }>({
+      isVisible: computed(
+        (): Boolean => {
+          return store.state.displayHeaderLogo;
+        }
+      )
+    });
+
+    return { state };
+  }
 });
 </script>
 
@@ -31,7 +49,7 @@ export default defineComponent({
   position: fixed;
   top: 32px;
   width: 100%;
-  z-index: 10;
+  z-index: 100;
   &__container {
     display: flex;
     align-items: center;
@@ -45,8 +63,12 @@ export default defineComponent({
     }
   }
   &__logo {
-    /* opacity: 0; */
+    opacity: 0;
     transition: 0.3s;
+    &--visible {
+      @extend .header__logo;
+      opacity: 1;
+    }
   }
   &__image {
     display: block;

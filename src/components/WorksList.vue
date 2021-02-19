@@ -1,5 +1,5 @@
 <template>
-  <div class="worksList" ref="worksElement">
+  <div :style="styles" class="worksList" ref="worksElement">
     <h2 class="worksList__heading">works</h2>
     <ul class="worksList__list">
       <li v-for="worksItem in worksList" :key="worksItem" class="worksList__item">
@@ -17,7 +17,7 @@
                 v-for="color in colors"
                 :key="color"
                 class="worksList__cube"
-                :style="{background: color}"
+                :style="{background : color}"
               ></span>
             </div>
           </div>
@@ -31,11 +31,6 @@
             class="worksList__link"
             target="_blank"
             rel="noopener"
-            @mouseover="state.isActive = worksItem.title"
-            @mouseleave="state.isActive = ''"
-            @touchstart="state.isActive = worksItem.title"
-            @touchend="state.isActive = ''"
-            :style="[state.isActive === worksItem.title ? styles : '']"
           >View website</a>
         </div>
       </li>
@@ -63,15 +58,11 @@ export default defineComponent({
     const store = useStore();
     const state = reactive<{
       isActive: String;
+      color: String;
     }>({
-      isActive: ""
+      isActive: "",
+      color: ""
     });
-
-    const styles = computed<Object>(() => ({
-      "--color": store.state.backgroundColor,
-      "--background": "#ffffff",
-      "--border": `1px solid ${store.state.backgroundColor}`
-    }));
 
     onMounted(() => {
       axios
@@ -92,35 +83,7 @@ export default defineComponent({
     });
 
     /**
-     * 配列の値をシャッフル
-     * @type {array}
-     */
-    const shuffleValue = (array: any) => {
-      let shuffledValue = array.slice();
-      for (let i = shuffledValue.length - 1; i >= 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledValue[i], shuffledValue[j]] = [
-          shuffledValue[j],
-          shuffledValue[i]
-        ];
-      }
-      return shuffledValue;
-    };
-    /**
-     * 配列からランダムで値を選択
-     * @return {array}
-     */
-    const pickRandomValue = (array: any, number: number) => {
-      let pickedArray = [];
-      for (let i = 0; i < number; i++) {
-        let arrayIndex = Math.floor(Math.random() * array.length);
-        pickedArray[i] = array[arrayIndex];
-        array.splice(arrayIndex, 1);
-      }
-      return pickedArray;
-    };
-    /**
-     * シャッフルされた値を２個入りの配列に編成
+     * 値を２個入りの配列に編成
      * @type {array}
      */
     const arrangeByNumber = (array: any, number: number) => {
@@ -129,24 +92,30 @@ export default defineComponent({
         .fill()
         .map((_: any, i: any) => array.slice(i * number, (i + 1) * number));
     };
+
     /**
      * コンセプトカラーのリストを作成
      * @type {array}
      */
     const getColorList = (array: any) => {
-      let colorList = arrangeByNumber(
-        pickRandomValue(shuffleValue(array), 4),
-        2
-      );
+      let colorList = arrangeByNumber(array, 2);
       return colorList;
     };
+
+    const styles = computed<Object>(() => ({
+      "--color": store.state.backgroundColor,
+      "--background": "#ffffff",
+      "--border": `1px solid ${store.state.backgroundColor}`,
+      "--text": state.color
+    }));
 
     return {
       worksList,
       worksElement,
       getColorList,
       state,
-      styles
+      styles,
+      arrangeByNumber
     };
   }
 });
@@ -247,6 +216,9 @@ export default defineComponent({
     display: block;
     width: 18px;
     height: 18px;
+    &--bg {
+      background-color: var(--text);
+    }
   }
   &__category {
     display: block;

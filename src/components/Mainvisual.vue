@@ -1,5 +1,5 @@
 <template>
-  <div class="mainvisual">
+  <div class="mainvisual" ref="mainvisual">
     <div class="mainvisual__container">
       <img class="mainvisual__image" src="../assets/images/logo.png" alt="flaner">
     </div>
@@ -7,10 +7,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "Mainvisual"
+  name: "Mainvisual",
+  setup: () => {
+    const mainvisual = ref();
+    const store = useStore();
+    // コンポーネントの内容が用意されてから実行
+    onMounted(() => {
+      const mainvisualHeight: Number = mainvisual.value.clientHeight;
+      store.commit("setMainvisualRect", mainvisualHeight);
+    });
+
+    return { mainvisual };
+  }
 });
 </script>
 

@@ -94,9 +94,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .about {
+  min-height: 100vh;
   padding-top: 104px;
   background: #474747;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 1024px) {
     padding-top: 209px;
   }
   &__container {
@@ -104,12 +105,16 @@ export default defineComponent({
     @media screen and (min-width: 1024px) {
       width: 990px;
       margin: 0 auto;
+      padding: 0;
     }
   }
   &__item {
     margin-top: 48px;
     &:first-child {
       margin-top: 0;
+    }
+    @media screen and (min-width: 600px) {
+      margin-top: 64px;
     }
   }
   &__heading {
@@ -121,6 +126,9 @@ export default defineComponent({
   }
   &__description {
     margin-top: 12px;
+    @media screen and (min-width: 600px) {
+      margin-top: 24px;
+    }
   }
   &__eng {
     &::after {
@@ -134,6 +142,9 @@ export default defineComponent({
     &:first-of-type {
       margin-top: 0;
     }
+    @media screen and (min-width: 600px) {
+      margin-top: 40px;
+    }
   }
   &__company {
     font-weight: bold;
@@ -146,13 +157,13 @@ export default defineComponent({
   }
   &__contact {
     list-style-type: none;
-    @media screen and (min-width: 50em) {
+    @media screen and (min-width: 600px) {
       display: flex;
     }
   }
   &__sns {
     display: flex;
-    @media screen and (min-width: 50em) {
+    @media screen and (min-width: 600px) {
       margin-left: 40px;
       &:first-child {
         margin-left: 0;
