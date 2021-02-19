@@ -1,7 +1,7 @@
 <template>
-  <div class="footer">
+  <footer class="footer">
     <p class="footer__copyright">©︎ 2021 nana takahashi</p>
-  </div>
+  </footer>
 </template>
 
 <script lang="ts">
@@ -13,7 +13,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
 .footer {
   margin-top: 80px;
   padding-bottom: 32px;

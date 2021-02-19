@@ -1,64 +1,79 @@
 <template>
-  <div class="container" :style="{background: state.backgroundColor}">
-    <Mainvisual/>
-    <div class="contents">
-      <Hello/>
-      <Works @worksRect="getWorksRect" :background="state.backgroundColor"/>
-      <Footer/>
-    </div>
+  <div class="contents">
+    <Header/>
+    <router-view/>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, reactive } from "vue";
-import Hello from "./components/Hello.vue";
-import Mainvisual from "./components/Mainvisual.vue";
-import About from "./components/About.vue";
-import Career from "./components/Career.vue";
-import Works from "./components/Works.vue";
-import Contact from "./components/Contact.vue";
-import Footer from "./components/Footer.vue";
-import { ComponentNode } from "@vue/compiler-dom";
+import {
+  defineComponent,
+  reactive,
+  watch,
+  onMounted,
+  computed,
+  ComputedRef
+} from "vue";
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
+
+import Header from "./components/Header.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    Hello,
-    Mainvisual,
-    About,
-    Career,
-    Works,
-    Contact,
-    Footer
+    Header
   },
   setup: () => {
-    const initialColor = "#d4d0bb";
+    const store = useStore();
+    const router = useRouter();
+    const route = useRoute();
+
     const state = reactive<{
-      backgroundColor: String;
-      rectOffsetY: number;
-      rectSwitchPoint: number;
+      position: Number;
+      mainvisualHeight: ComputedRef<Number>;
     }>({
-      backgroundColor: initialColor,
-      rectOffsetY: 0,
-      rectSwitchPoint: 0
+      position: 0,
+      mainvisualHeight: computed(
+        (): Number => {
+          return store.state.mainvisualHeight;
+        }
+      )
     });
 
-    const getWorksRect = (offsetY: number, height: number): void => {
-      state.rectOffsetY = offsetY;
-      state.rectSwitchPoint = offsetY + height / 2;
+    document.onscroll = e => {
+      state.position =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      checkDisplayLogo();
     };
 
-    window.addEventListener("scroll", function() {
-      let scroll = window.pageYOffset;
-      if (scroll < state.rectOffsetY) {
-        state.backgroundColor = initialColor;
-      } else if (scroll > state.rectOffsetY && scroll < state.rectSwitchPoint) {
-        state.backgroundColor = "#d2c3bc";
-      } else if (scroll > state.rectSwitchPoint) {
-        state.backgroundColor = "#b9cbce";
-      }
+    onMounted(() => {
+      let initialPath = route.path;
+      store.commit("setCurrentRoutePath", initialPath);
+      checkDisplayLogo();
     });
-    return { state, getWorksRect };
+
+    watch(
+      () => route.path,
+      path => {
+        store.commit("setCurrentRoutePath", path);
+        checkDisplayLogo();
+      }
+    );
+
+    const checkDisplayLogo = () => {
+      if (store.state.currentRoutePath !== "/") {
+        return store.commit("setDisplayHeaderLogo", true);
+      } else if (store.state.currentRoutePath === "/") {
+        if (state.position > store.state.mainvisualHeight) {
+          return store.commit("setDisplayHeaderLogo", true);
+        } else {
+          return store.commit("setDisplayHeaderLogo", false);
+        }
+      }
+    };
+
+    return state;
   }
 });
 </script>
@@ -73,6 +88,19 @@ export default defineComponent({
   src: url("./assets/font/YakuHanJP-Regular.woff2") format("woff2"),
     url("./assets/font/YakuHanJP-Regular.woff") format("woff");
 }
+body {
+  color: #ffffff;
+  font-family: "YakuHanJP", -apple-system, BlinkMacSystemFont, "游ゴシック",
+    游ゴシック体, YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue,
+    Verdana, Meiryo, sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  font-feature-settings: "palt";
+  letter-spacing: 0.14em;
+  @media screen and (min-width: 600px) {
+    font-size: 16px;
+  }
+}
 /* IE */
 _:lang(x)::-ms-backdrop,
 body {
@@ -80,25 +108,5 @@ body {
 }
 li {
   list-style-type: none;
-}
-.container {
-  color: #ffffff;
-  font-family: "YakuHanJP", -apple-system, BlinkMacSystemFont, "游ゴシック",
-    游ゴシック体, YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue,
-    Verdana, Meiryo, sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  font-feature-settings: "palt";
-  transition: 0.7s;
-  letter-spacing: 0.14em;
-  @media screen and (min-width: 600px) {
-    font-size: 14px;
-  }
-}
-.contents {
-  @media screen and (min-width: 1024px) {
-    width: 990px;
-    margin: 0 auto;
-  }
 }
 </style>

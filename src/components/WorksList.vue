@@ -1,41 +1,36 @@
 <template>
-  <div class="works" ref="worksElement">
-    <h2 class="works__heading">works</h2>
-    <ul class="works__list">
-      <li v-for="worksItem in worksList" :key="worksItem" class="works__item">
-        <img class="works__image" :src="worksItem.image" alt="flaner" loading="lazy">
-        <div class="works__contents">
-          <h3 class="works__title">{{ worksItem.title }}</h3>
-          <span class="works__year">{{ worksItem.year }}</span>
-          <div v-if="worksItem.colors" class="works__concept">
+  <div :style="styles" class="worksList" ref="worksElement">
+    <h2 class="worksList__heading">works</h2>
+    <ul class="worksList__list">
+      <li v-for="worksItem in worksList" :key="worksItem" class="worksList__item">
+        <img class="worksList__image" :src="worksItem.image" alt="flaner" loading="lazy">
+        <div class="worksList__contents">
+          <h3 class="worksList__title">{{ worksItem.title }}</h3>
+          <span class="worksList__year">{{ worksItem.year }}</span>
+          <div v-if="worksItem.colors" class="worksList__concept">
             <div
               v-for="colors in getColorList(worksItem.colors)"
               :key="colors"
-              class="works__colors"
+              class="worksList__colors"
             >
               <span
                 v-for="color in colors"
                 :key="color"
-                class="works__cube"
-                :style="{background: color}"
+                class="worksList__cube"
+                :style="{background : color}"
               ></span>
             </div>
           </div>
-          <span class="works__category">{{ worksItem.category }}</span>
-          <p class="works__role">
-            <span class="works__skill" v-for="skill in worksItem.skills" :key="skill">/ {{ skill }}</span>
+          <span class="worksList__category">{{ worksItem.category }}</span>
+          <p class="worksList__roles">
+            <span class="worksList__role" v-for="role in worksItem.roles" :key="role">/ {{ role }}</span>
           </p>
           <a
             v-if="worksItem.link"
             :href="worksItem.link"
-            class="works__link"
+            class="worksList__link"
             target="_blank"
             rel="noopener"
-            :style="[state.isActive=worksItem.title ? styles: '']"
-            @mouseover="state.isActive=worksItem.title"
-            @mouseleave="state.isActive=''"
-            @touchstart="state.isActive=worksItem.title"
-            @touchend="state.isActive=''"
           >View website</a>
         </div>
       </li>
@@ -53,25 +48,21 @@ import {
   computed
 } from "vue";
 import axios from "axios";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "Works",
-  props: ["background"],
-  setup: (props, { emit }) => {
+  name: "WorksList",
+  setup: () => {
     let worksList: any = ref();
     const worksElement = ref<HTMLDivElement | any>();
-
+    const store = useStore();
     const state = reactive<{
       isActive: String;
+      color: String;
     }>({
-      isActive: ""
+      isActive: "",
+      color: ""
     });
-
-    const styles = computed<Object>(() => ({
-      "--color": props.background,
-      "--background": "#ffffff",
-      "--border": `1px solid ${props.background}`
-    }));
 
     onMounted(() => {
       axios
@@ -88,39 +79,11 @@ export default defineComponent({
         window.pageYOffset + worksElement.value.getBoundingClientRect().top
       );
       const height: number = worksElement.value.clientHeight;
-      emit("worksRect", offsetY, height);
+      store.commit("setWorksRect", { offsetY, height });
     });
 
     /**
-     * 配列の値をシャッフル
-     * @type {array}
-     */
-    const shuffleValue = (array: any) => {
-      let shuffledValue = array.slice();
-      for (let i = shuffledValue.length - 1; i >= 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledValue[i], shuffledValue[j]] = [
-          shuffledValue[j],
-          shuffledValue[i]
-        ];
-      }
-      return shuffledValue;
-    };
-    /**
-     * 配列からランダムで値を選択
-     * @return {array}
-     */
-    const pickRandomValue = (array: any, number: number) => {
-      let pickedArray = [];
-      for (let i = 0; i < number; i++) {
-        let arrayIndex = Math.floor(Math.random() * array.length);
-        pickedArray[i] = array[arrayIndex];
-        array.splice(arrayIndex, 1);
-      }
-      return pickedArray;
-    };
-    /**
-     * シャッフルされた値を２個入りの配列に編成
+     * 値を２個入りの配列に編成
      * @type {array}
      */
     const arrangeByNumber = (array: any, number: number) => {
@@ -129,31 +92,37 @@ export default defineComponent({
         .fill()
         .map((_: any, i: any) => array.slice(i * number, (i + 1) * number));
     };
+
     /**
      * コンセプトカラーのリストを作成
      * @type {array}
      */
     const getColorList = (array: any) => {
-      let colorList = arrangeByNumber(
-        pickRandomValue(shuffleValue(array), 4),
-        2
-      );
+      let colorList = arrangeByNumber(array, 2);
       return colorList;
     };
+
+    const styles = computed<Object>(() => ({
+      "--color": store.state.backgroundColor,
+      "--background": "#ffffff",
+      "--border": `1px solid ${store.state.backgroundColor}`,
+      "--text": state.color
+    }));
 
     return {
       worksList,
       worksElement,
       getColorList,
       state,
-      styles
+      styles,
+      arrangeByNumber
     };
   }
 });
 </script>
 
 <style lang="scss" scoped>
-.works {
+.worksList {
   margin-top: 80px;
   &__heading {
     padding: 0 24px;
@@ -247,6 +216,9 @@ export default defineComponent({
     display: block;
     width: 18px;
     height: 18px;
+    &--bg {
+      background-color: var(--text);
+    }
   }
   &__category {
     display: block;
@@ -257,7 +229,7 @@ export default defineComponent({
       font-size: 16px;
     }
   }
-  &__role {
+  &__roles {
     margin-top: 8px;
     font-size: 14px;
 
@@ -265,7 +237,7 @@ export default defineComponent({
       font-size: 16px;
     }
   }
-  &__skill {
+  &__role {
     margin-left: 6px;
     line-height: 1;
     @media screen and (min-width: 660px) {

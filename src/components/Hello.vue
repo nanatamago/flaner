@@ -5,7 +5,7 @@
       <br>a designer
       <br>developer
     </p>
-    <p class="hello__button">about me</p>
+    <router-link class="hello__link" :to="{ name:'about'}">about me</router-link>
   </div>
 </template>
 
@@ -37,13 +37,21 @@ export default defineComponent({
       letter-spacing: 0.15em;
     }
   }
-  &__button {
-    color: #e36c6c;
+  &__link {
+    display: inline-block;
+    color: #ffffff;
     margin-top: 16px;
-    letter-spacing: 3.3px;
+    padding-bottom: 4px;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    transition: 0.3s;
+    border-bottom: 1px solid transparent;
     @media screen and (min-width: 600px) {
       margin-top: 40px;
       font-size: 18px;
+    }
+    &:hover {
+      border-bottom: 1px solid #ffffff;
     }
   }
 }
