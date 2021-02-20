@@ -31,10 +31,10 @@ export default defineComponent({
     font-family: "copperplate", sans-serif;
     font-size: 22px;
     font-weight: 500;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     @media screen and (min-width: 600px) {
       font-size: 40px;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
     }
   }
   &__link {
@@ -45,13 +45,14 @@ export default defineComponent({
     letter-spacing: 0.2em;
     text-decoration: none;
     transition: 0.3s;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid #ffffff;
     @media screen and (min-width: 600px) {
       margin-top: 40px;
       font-size: 18px;
     }
-    &:hover {
-      border-bottom: 1px solid #ffffff;
+    &:hover,
+    :active {
+      border-bottom: 1px solid transparent;
     }
   }
 }

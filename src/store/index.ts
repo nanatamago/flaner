@@ -5,7 +5,8 @@ export interface GlobalState {
   backgroundColor: String;
   offsetY: Number;
   height: Number;
-  mainvisualHeight: Number;
+  logoOffsetY: Number;
+  logoHeight: Number;
   currentRoutePath: String;
   displayHeaderLogo: Boolean;
 }
@@ -17,7 +18,8 @@ const store = createStore({
     backgroundColor: "#d4d0bb",
     offsetY: 0,
     height: 0,
-    mainvisualHeight: 0,
+    logoOffsetY: 0,
+    logoHeight: 0,
     currentRoutePath: "",
     displayHeaderLogo: false
   },
@@ -29,11 +31,12 @@ const store = createStore({
       state.offsetY = offsetY;
       state.height = height;
     },
-    setMainvisualRect(state, mainvisualHeight) {
-      state.mainvisualHeight = mainvisualHeight;
+    setLogoRect(state, { logoOffsetY, logoHeight }) {
+      state.logoOffsetY = logoOffsetY;
+      state.logoHeight = logoHeight;
     },
-    setCurrentRoutePath(state, path) {
-      state.currentRoutePath = path;
+    setCurrentRoutePath(state, routePath) {
+      state.currentRoutePath = routePath;
     },
     setDisplayHeaderLogo(state, displayHeaderLogo) {
       state.displayHeaderLogo = displayHeaderLogo;

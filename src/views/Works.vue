@@ -4,7 +4,6 @@
     <div class="works__container">
       <Hello/>
       <WorksList/>
-      <Footer/>
     </div>
   </main>
 </template>
@@ -14,19 +13,21 @@ import {
   defineComponent,
   reactive,
   computed,
+  ComputedRef,
+  onMounted,
+  onUnmounted,
   onUpdated,
-  ComputedRef
+  onBeforeMount
 } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
 import Mainvisual from "../components/Mainvisual.vue";
 import Hello from "../components/Hello.vue";
 import WorksList from "../components/WorksList.vue";
-import Footer from "../components/Footer.vue";
 
 export default defineComponent({
   name: "Works",
-  components: { Mainvisual, Hello, WorksList, Footer },
+  components: { Mainvisual, Hello, WorksList },
   setup: () => {
     const store = useStore();
     const state = reactive<{
@@ -51,7 +52,7 @@ export default defineComponent({
       )
     });
 
-    window.addEventListener("scroll", function() {
+    const changeBackground = () => {
       let scroll = window.pageYOffset;
       if (scroll < state.rectOffsetY) {
         store.commit("setBackgroundColor", "#d4d0bb");
@@ -60,7 +61,16 @@ export default defineComponent({
       } else if (scroll > state.rectSwitchPoint) {
         store.commit("setBackgroundColor", "#b9cbce");
       }
+    };
+
+    onMounted(() => {
+      window.addEventListener("scroll", changeBackground);
     });
+
+    onUnmounted(() => {
+      window.removeEventListener("scroll", changeBackground);
+    });
+
     return { state };
   }
 });
@@ -68,7 +78,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .works {
+  margin-bottom: -40px;
+  padding-bottom: 112px;
   transition: 0.7s;
+  @media screen and (min-width: 1024px) {
+    margin-bottom: -80px;
+    padding-bottom: 160px;
+  }
   &__container {
     @media screen and (min-width: 1024px) {
       width: 990px;

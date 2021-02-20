@@ -78,27 +78,26 @@
         </li>
       </ul>
     </div>
-    <Footer/>
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Footer from "../components/Footer.vue";
 
 export default defineComponent({
-  name: "About",
-  components: { Footer }
+  name: "About"
 });
 </script>
 
 <style lang="scss" scoped>
 .about {
   min-height: 100vh;
-  padding-top: 104px;
+  margin-bottom: -42px;
+  padding: 130px 0 112px;
   background: #474747;
   @media screen and (min-width: 1024px) {
-    padding-top: 209px;
+    margin-bottom: -80px;
+    padding: 209px 0 160px;
   }
   &__container {
     padding: 0 24px;

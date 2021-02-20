@@ -2,6 +2,7 @@
   <div class="contents">
     <Header/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
@@ -18,11 +19,13 @@ import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 
 import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    Header
+    Header,
+    Footer
   },
   setup: () => {
     const store = useStore();
@@ -31,12 +34,12 @@ export default defineComponent({
 
     const state = reactive<{
       position: Number;
-      mainvisualHeight: ComputedRef<Number>;
+      logoHeight: ComputedRef<Number>;
     }>({
       position: 0,
-      mainvisualHeight: computed(
+      logoHeight: computed(
         (): Number => {
-          return store.state.mainvisualHeight;
+          return store.state.logoHeight;
         }
       )
     });
@@ -65,7 +68,7 @@ export default defineComponent({
       if (store.state.currentRoutePath !== "/") {
         return store.commit("setDisplayHeaderLogo", true);
       } else if (store.state.currentRoutePath === "/") {
-        if (state.position > store.state.mainvisualHeight) {
+        if (state.position > store.state.logoHeight + store.state.logoOffsetY) {
           return store.commit("setDisplayHeaderLogo", true);
         } else {
           return store.commit("setDisplayHeaderLogo", false);

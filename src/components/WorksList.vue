@@ -1,5 +1,5 @@
 <template>
-  <div :style="styles" class="worksList" ref="worksElement">
+  <div v-if="worksList" class="worksList" ref="worksElement">
     <h2 class="worksList__heading">works</h2>
     <ul class="worksList__list">
       <li v-for="worksItem in worksList" :key="worksItem" class="worksList__item">
@@ -31,6 +31,7 @@
             class="worksList__link"
             target="_blank"
             rel="noopener"
+            :style="styles"
           >View website</a>
         </div>
       </li>
@@ -45,26 +46,30 @@ import {
   ref,
   onMounted,
   onUpdated,
-  computed
+  computed,
+  onUnmounted,
+  onBeforeMount,
+  onBeforeUpdate,
+  watch
 } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
+import { isArray } from "@vue/shared";
 
 export default defineComponent({
   name: "WorksList",
   setup: () => {
     let worksList: any = ref();
+
     const worksElement = ref<HTMLDivElement | any>();
     const store = useStore();
     const state = reactive<{
-      isActive: String;
-      color: String;
+      items: any;
     }>({
-      isActive: "",
-      color: ""
+      items: []
     });
 
-    onMounted(() => {
+    onBeforeMount(() => {
       axios
         .get("src/assets/data/works.json")
         .then(response => (worksList.value = response.data));
@@ -73,7 +78,10 @@ export default defineComponent({
       };
     });
 
-    // コンポーネントの内容が用意されてから実行
+    onMounted(() => {
+      window.addEventListener("scroll", handleScroll);
+    });
+
     onUpdated(() => {
       const offsetY: number = Math.floor(
         window.pageYOffset + worksElement.value.getBoundingClientRect().top
@@ -81,6 +89,25 @@ export default defineComponent({
       const height: number = worksElement.value.clientHeight;
       store.commit("setWorksRect", { offsetY, height });
     });
+
+    onUnmounted(() => {
+      window.removeEventListener("scroll", handleScroll);
+    });
+
+    const handleScroll = () => {
+      let worksItemNodes = document.getElementsByClassName("worksList__item");
+      state.items = Array.from(worksItemNodes);
+
+      for (let i = 0; i < state.items.length; i++) {
+        let height = state.items[i].getBoundingClientRect().top;
+        if (height < window.innerHeight - 200) {
+          let child = state.items[i].firstChild;
+          child.classList.add("visible");
+          let contents = child.nextSibling;
+          contents.classList.add("visible");
+        }
+      }
+    };
 
     /**
      * 値を２個入りの配列に編成
@@ -105,8 +132,7 @@ export default defineComponent({
     const styles = computed<Object>(() => ({
       "--color": store.state.backgroundColor,
       "--background": "#ffffff",
-      "--border": `1px solid ${store.state.backgroundColor}`,
-      "--text": state.color
+      "--border": `1px solid ${store.state.backgroundColor}`
     }));
 
     return {
@@ -115,7 +141,7 @@ export default defineComponent({
       getColorList,
       state,
       styles,
-      arrangeByNumber
+      handleScroll
     };
   }
 });
@@ -124,6 +150,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .worksList {
   margin-top: 80px;
+  @media screen and (min-width: 600px) {
+    margin-top: 160px;
+  }
   &__heading {
     padding: 0 24px;
     font-family: "copperplate", sans-serif;
@@ -146,7 +175,6 @@ export default defineComponent({
     max-width: 375px;
     margin-top: 40px;
     color: #ffffff;
-
     &:first-child {
       margin-top: 0;
     }
@@ -164,7 +192,22 @@ export default defineComponent({
     width: 100%;
     max-width: 550px;
     height: calc(375px / 1.67);
+    visibility: hidden;
     object-fit: cover;
+    &.visible {
+      visibility: visible;
+      animation: imageFade 2s;
+    }
+    @keyframes imageFade {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0px);
+      }
+    }
     @media screen and (min-width: 600px) {
       height: calc(550px / 1.67);
     }
@@ -176,6 +219,24 @@ export default defineComponent({
     margin-top: -12px;
     padding: 0 24px;
     line-height: 1;
+    visibility: hidden;
+    &.visible {
+      visibility: visible;
+      animation: contentFade 1s;
+    }
+    @keyframes contentFade {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+    @media screen and (min-width: 600px) {
+      height: calc(550px / 1.67);
+    }
     @media screen and (min-width: 660px) {
       margin-top: -16px;
     }
@@ -214,11 +275,8 @@ export default defineComponent({
   }
   &__cube {
     display: block;
-    width: 18px;
-    height: 18px;
-    &--bg {
-      background-color: var(--text);
-    }
+    width: 16px;
+    height: 16px;
   }
   &__category {
     display: block;
@@ -273,7 +331,8 @@ export default defineComponent({
       border-right: 1px solid #ffffff;
       border-bottom: 1px solid #ffffff;
     }
-    &:hover {
+    &:hover,
+    :active {
       color: var(--color);
       background: var(--background);
       &::before {
