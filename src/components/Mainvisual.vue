@@ -41,6 +41,15 @@ export default defineComponent({
       )
     });
 
+    const getDeviceSwtichPoint = () => {
+      const targetPoint = window.matchMedia("(max-width: 1024px)");
+      if (targetPoint.matches) {
+        return (state.deviceSwtich = false);
+      } else {
+        return (state.deviceSwtich = true);
+      }
+    };
+
     onMounted(() => {
       const logoOffsetY: Number = Math.floor(
         window.pageYOffset + logo.value.getBoundingClientRect().top
@@ -52,15 +61,6 @@ export default defineComponent({
       });
       getDeviceSwtichPoint();
     });
-
-    const getDeviceSwtichPoint = () => {
-      const targetPoint = window.matchMedia("(max-width: 1024px)");
-      if (targetPoint.matches) {
-        return (state.deviceSwtich = false);
-      } else {
-        return (state.deviceSwtich = true);
-      }
-    };
 
     return { logo, state };
   }

@@ -15,9 +15,7 @@ import {
   computed,
   ComputedRef,
   onMounted,
-  onUnmounted,
-  onUpdated,
-  onBeforeMount
+  onUnmounted
 } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
@@ -42,7 +40,7 @@ export default defineComponent({
       ),
       rectOffsetY: computed(
         (): Number => {
-          return store.state.offsetY;
+          return store.state.offsetY - 300;
         }
       ),
       rectSwitchPoint: computed(

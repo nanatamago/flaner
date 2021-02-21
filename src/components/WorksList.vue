@@ -45,11 +45,10 @@ import {
   reactive,
   ref,
   onMounted,
+  onBeforeMount,
   onUpdated,
   computed,
   onUnmounted,
-  onBeforeMount,
-  onBeforeUpdate,
   watch
 } from "vue";
 import axios from "axios";
@@ -60,48 +59,25 @@ export default defineComponent({
   name: "WorksList",
   setup: () => {
     let worksList: any = ref();
-
     const worksElement = ref<HTMLDivElement | any>();
     const store = useStore();
     const state = reactive<{
-      items: any;
+      worksItems: any;
     }>({
-      items: []
+      worksItems: []
     });
 
-    onBeforeMount(() => {
-      axios
-        .get("src/assets/data/works.json")
-        .then(response => (worksList.value = response.data));
-      return {
-        worksList
-      };
-    });
-
-    onMounted(() => {
-      window.addEventListener("scroll", handleScroll);
-    });
-
-    onUpdated(() => {
-      const offsetY: number = Math.floor(
-        window.pageYOffset + worksElement.value.getBoundingClientRect().top
-      );
-      const height: number = worksElement.value.clientHeight;
-      store.commit("setWorksRect", { offsetY, height });
-    });
-
-    onUnmounted(() => {
-      window.removeEventListener("scroll", handleScroll);
-    });
-
-    const handleScroll = () => {
+    /**
+     * スクロールでリストをフェードイン
+     */
+    const fadeOnScroll = () => {
       let worksItemNodes = document.getElementsByClassName("worksList__item");
-      state.items = Array.from(worksItemNodes);
+      state.worksItems = Array.from(worksItemNodes);
 
-      for (let i = 0; i < state.items.length; i++) {
-        let height = state.items[i].getBoundingClientRect().top;
+      for (let i = 0; i < state.worksItems.length; i++) {
+        const height = state.worksItems[i].getBoundingClientRect().top;
         if (height < window.innerHeight - 200) {
-          let child = state.items[i].firstChild;
+          let child = state.worksItems[i].firstChild;
           child.classList.add("visible");
           let contents = child.nextSibling;
           contents.classList.add("visible");
@@ -135,13 +111,30 @@ export default defineComponent({
       "--border": `1px solid ${store.state.backgroundColor}`
     }));
 
+    axios
+      .get("src/assets/data/works.json")
+      .then(response => (worksList.value = response.data));
+
+    onUpdated(() => {
+      const offsetY: Number = Math.floor(
+        window.pageYOffset + worksElement.value.getBoundingClientRect().top
+      );
+      const height: Number = worksElement.value.clientHeight;
+      store.commit("setWorksRect", { offsetY, height });
+      window.addEventListener("scroll", fadeOnScroll);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener("scroll", fadeOnScroll);
+    });
+
     return {
       worksList,
       worksElement,
-      getColorList,
       state,
-      styles,
-      handleScroll
+      fadeOnScroll,
+      getColorList,
+      styles
     };
   }
 });
@@ -150,15 +143,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .worksList {
   margin-top: 80px;
-  @media screen and (min-width: 600px) {
-    margin-top: 160px;
+  @media screen and (min-width: 660px) {
+    margin-top: 120px;
   }
   &__heading {
     padding: 0 24px;
     font-family: "copperplate", sans-serif;
     font-size: 18px;
     font-weight: 300;
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       font-size: 24px;
     }
     @media screen and (min-width: 1024px) {
@@ -167,7 +160,7 @@ export default defineComponent({
   }
   &__list {
     margin-top: 32px;
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       margin-top: 40px;
     }
   }
@@ -178,7 +171,7 @@ export default defineComponent({
     &:first-child {
       margin-top: 0;
     }
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       max-width: 550px;
       margin-top: 80px;
     }
@@ -196,7 +189,7 @@ export default defineComponent({
     object-fit: cover;
     &.visible {
       visibility: visible;
-      animation: imageFade 2s;
+      animation: imageFade 3s;
     }
     @keyframes imageFade {
       from {
@@ -208,7 +201,7 @@ export default defineComponent({
         transform: translateX(0px);
       }
     }
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       height: calc(550px / 1.67);
     }
   }
@@ -222,7 +215,7 @@ export default defineComponent({
     visibility: hidden;
     &.visible {
       visibility: visible;
-      animation: contentFade 1s;
+      animation: contentFade 2s;
     }
     @keyframes contentFade {
       from {
@@ -233,9 +226,6 @@ export default defineComponent({
         opacity: 1;
         transform: translateY(0px);
       }
-    }
-    @media screen and (min-width: 600px) {
-      height: calc(550px / 1.67);
     }
     @media screen and (min-width: 660px) {
       margin-top: -16px;
@@ -277,6 +267,10 @@ export default defineComponent({
     display: block;
     width: 16px;
     height: 16px;
+    @media screen and (min-width: 660px) {
+      width: 18px;
+      height: 18px;
+    }
   }
   &__category {
     display: block;
@@ -332,7 +326,7 @@ export default defineComponent({
       border-bottom: 1px solid #ffffff;
     }
     &:hover,
-    :active {
+    &:active {
       color: var(--color);
       background: var(--background);
       &::before {

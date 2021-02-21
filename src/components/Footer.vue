@@ -11,7 +11,6 @@ export default defineComponent({
   name: "Footer",
   setup: () => {
     let date = new Date().getFullYear();
-
     return { date };
   }
 });
@@ -22,7 +21,7 @@ export default defineComponent({
   font-size: 12px;
   text-align: center;
   letter-spacing: 0.1em;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 660px) {
     font-size: 14px;
     letter-spacing: 0.18em;
   }

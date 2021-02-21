@@ -1,7 +1,13 @@
 <template>
   <div class="contents">
     <Header/>
-    <router-view/>
+    <router-view></router-view>
+    <!-- <transition>
+        <keep-alive>
+          <component :is="Component"/>
+    </keep-alive>-->
+    <!-- </transition> -->
+    <!-- </router-view> -->
     <Footer/>
   </div>
 </template>
@@ -44,6 +50,18 @@ export default defineComponent({
       )
     });
 
+    const checkDisplayLogo = () => {
+      if (store.state.currentRoutePath !== "/") {
+        return store.commit("setDisplayHeaderLogo", true);
+      } else if (store.state.currentRoutePath === "/") {
+        if (state.position > store.state.logoHeight + store.state.logoOffsetY) {
+          return store.commit("setDisplayHeaderLogo", true);
+        } else {
+          return store.commit("setDisplayHeaderLogo", false);
+        }
+      }
+    };
+
     document.onscroll = e => {
       state.position =
         document.documentElement.scrollTop || document.body.scrollTop;
@@ -63,18 +81,6 @@ export default defineComponent({
         checkDisplayLogo();
       }
     );
-
-    const checkDisplayLogo = () => {
-      if (store.state.currentRoutePath !== "/") {
-        return store.commit("setDisplayHeaderLogo", true);
-      } else if (store.state.currentRoutePath === "/") {
-        if (state.position > store.state.logoHeight + store.state.logoOffsetY) {
-          return store.commit("setDisplayHeaderLogo", true);
-        } else {
-          return store.commit("setDisplayHeaderLogo", false);
-        }
-      }
-    };
 
     return state;
   }
@@ -100,7 +106,7 @@ body {
   font-size: 14px;
   font-feature-settings: "palt";
   letter-spacing: 0.14em;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 660px) {
     font-size: 16px;
   }
 }
@@ -112,4 +118,14 @@ body {
 li {
   list-style-type: none;
 }
+
+/* .v-enter-to,
+.v-leave-to {
+  transition: all opacity 0.3s;
+}
+
+.v-enter-from,
+.v-leave-from {
+  opacity: 0;
+} */
 </style>

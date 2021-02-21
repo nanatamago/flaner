@@ -4,7 +4,7 @@
     "year": "2021",
     "category": "portfolio",
     "image": "src/assets/images/flaner.webp",
-    "roles": ["design", "frontend"],
+    "roles": ["Sketch", "Vue.js"],
     "link": "https://flaner.today/",
     "colors": ["#d4d0bb", "#ffffff", "#d2c3bc", "#b9cbce"]
   },
@@ -13,8 +13,26 @@
     "year": "2021",
     "category": "blog",
     "image": "src/assets/images/peachy.webp",
-    "roles": ["design", "frontend"],
+    "roles": ["Figma", "React"],
     "link": "https://peachy.icu/",
+    "colors": ["#ef7c65", "#2462ff", "#f4f4f4", ""]
+  },
+  {
+    "title": "flaner",
+    "year": "2021",
+    "category": "portfolio",
+    "image": "src/assets/images/flaner.webp",
+    "roles": ["Sketch", "Vue.js"],
+    "link": "",
+    "colors": ["#d4d0bb", "#ffffff", "#d2c3bc", "#b9cbce"]
+  },
+  {
+    "title": "peachy",
+    "year": "2021",
+    "category": "blog",
+    "image": "src/assets/images/peachy.webp",
+    "roles": ["Figma", "React"],
+    "link": "",
     "colors": ["#ef7c65", "#2462ff", "#f4f4f4", ""]
   }
 ]

@@ -45,13 +45,13 @@ export default defineComponent({
     letter-spacing: 0.2em;
     text-decoration: none;
     transition: 0.3s;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #a5a5a5;
     @media screen and (min-width: 600px) {
       margin-top: 40px;
       font-size: 18px;
     }
     &:hover,
-    :active {
+    &:active {
       border-bottom: 1px solid transparent;
     }
   }
