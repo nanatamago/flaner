@@ -2,8 +2,8 @@
   <div class="hello">
     <p class="hello__text">
       I’m Nana Takahashi,
-      <br>a designer
-      <br>developer
+      <br>an user interface designer
+      <br>web developer
     </p>
     <router-link class="hello__link" :to="{ name:'about'}">about me</router-link>
   </div>
@@ -39,9 +39,10 @@ export default defineComponent({
   }
   &__link {
     display: inline-block;
-    color: #ffffff;
     margin-top: 16px;
     padding-bottom: 4px;
+    color: #ffffff;
+    font-size: 16px;
     letter-spacing: 0.2em;
     text-decoration: none;
     transition: 0.3s;

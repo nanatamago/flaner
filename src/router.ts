@@ -10,7 +10,8 @@ const routes = [
   {
     path: "/",
     name: "works",
-    component: Works
+    component: Works,
+    props: true
   },
   {
     path: "/about/",
@@ -21,11 +22,7 @@ const routes = [
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
   if (savedPosition) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(savedPosition);
-      });
-    });
+    return savedPosition;
   } else {
     return { left: 0, top: 0 };
   }

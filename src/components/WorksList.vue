@@ -2,8 +2,10 @@
   <div v-if="worksList" class="worksList" ref="worksElement">
     <h2 class="worksList__heading">works</h2>
     <ul class="worksList__list">
-      <li v-for="worksItem in worksList" :key="worksItem" class="worksList__item">
-        <img class="worksList__image" :src="worksItem.image" alt="flaner" loading="lazy">
+      <li v-for="(worksItem, index) in worksList" :key="worksItem" class="worksList__item">
+        <a class="worksList__link" @click="getWorksItem(index)">
+          <img class="worksList__image" :src="worksItem.image" alt="flaner">
+        </a>
         <div class="worksList__contents">
           <h3 class="worksList__title">{{ worksItem.title }}</h3>
           <span class="worksList__year">{{ worksItem.year }}</span>
@@ -21,21 +23,52 @@
               ></span>
             </div>
           </div>
-          <span class="worksList__category">{{ worksItem.category }}</span>
-          <p class="worksList__roles">
-            <span class="worksList__role" v-for="role in worksItem.roles" :key="role">/ {{ role }}</span>
+          <span class="worksList__category">#{{ worksItem.category }}</span>
+          <p class="worksList__skills">
+            skill :
+            <span
+              class="worksList__skill"
+              v-for="skill in worksItem.skills"
+              :key="skill"
+            >{{ skill }}</span>
           </p>
-          <a
+          <!-- <a
             v-if="worksItem.link"
             :href="worksItem.link"
             class="worksList__link"
             target="_blank"
             rel="noopener"
-            :style="styles"
-          >View website</a>
+          >View website</a>-->
         </div>
       </li>
     </ul>
+    <transition>
+      <Detail v-if="state.isVisible">
+        <template v-slot:image>
+          <img :src="worksList[state.currentWorksItem].image" alt="flaner" width="550" height="330">
+        </template>
+        <h2>{{ worksList[state.currentWorksItem].title }}</h2>
+        <p>{{ worksList[state.currentWorksItem].description }}</p>
+        <div class="worksList__colors">
+          コンセプトカラー
+          <span
+            v-for="color in worksList[state.currentWorksItem].colors"
+            :key="color"
+            class="worksList__cube"
+            :style="{background : color}"
+          ></span>
+        </div>
+        <p class="worksList__skills">
+          担当 :
+          <span
+            class="worksList__skill"
+            v-for="role in worksList[state.currentWorksItem].roles"
+            :key="role"
+          >{{ role }}</span>
+        </p>
+        <template v-slot:footer>閉じる</template>
+      </Detail>
+    </transition>
   </div>
 </template>
 
@@ -44,27 +77,39 @@ import {
   defineComponent,
   reactive,
   ref,
-  onMounted,
-  onBeforeMount,
   onUpdated,
   computed,
-  onUnmounted,
-  watch
+  ComputedRef,
+  onUnmounted
 } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
-import { isArray } from "@vue/shared";
+
+import Detail from "../views/Detail.vue";
 
 export default defineComponent({
   name: "WorksList",
+  components: { Detail },
   setup: () => {
     let worksList: any = ref();
     const worksElement = ref<HTMLDivElement | any>();
     const store = useStore();
     const state = reactive<{
       worksItems: any;
+      isVisible: ComputedRef<Boolean>;
+      currentWorksItem: ComputedRef<Number>;
+      isiOS: ComputedRef<Boolean>;
     }>({
-      worksItems: []
+      worksItems: [],
+      isVisible: computed(() => {
+        return store.state.displayWorksItemModal;
+      }),
+      currentWorksItem: computed(() => {
+        return store.state.currentWorksItem;
+      }),
+      isiOS: computed(() => {
+        return store.state.userAgentiOS;
+      })
     });
 
     /**
@@ -73,10 +118,9 @@ export default defineComponent({
     const fadeOnScroll = () => {
       let worksItemNodes = document.getElementsByClassName("worksList__item");
       state.worksItems = Array.from(worksItemNodes);
-
       for (let i = 0; i < state.worksItems.length; i++) {
         const height = state.worksItems[i].getBoundingClientRect().top;
-        if (height < window.innerHeight - 200) {
+        if (height < window.innerHeight - 300) {
           let child = state.worksItems[i].firstChild;
           child.classList.add("visible");
           let contents = child.nextSibling;
@@ -84,24 +128,49 @@ export default defineComponent({
         }
       }
     };
-
+    /**
+     * 配列の値をシャッフル
+     */
+    const shuffleValue = (array: any) => {
+      let shuffledValue = array.slice();
+      for (let i = shuffledValue.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledValue[i], shuffledValue[j]] = [
+          shuffledValue[j],
+          shuffledValue[i]
+        ];
+      }
+      return shuffledValue;
+    };
+    /**
+     * 配列からランダムで値を選択
+     */
+    const pickRandomValue = (array: any, number: number) => {
+      let pickedArray = [];
+      for (let i = 0; i < number; i++) {
+        let arrayIndex = Math.floor(Math.random() * array.length);
+        pickedArray[i] = array[arrayIndex];
+        array.splice(arrayIndex, 1);
+      }
+      return pickedArray;
+    };
     /**
      * 値を２個入りの配列に編成
-     * @type {array}
      */
     const arrangeByNumber = (array: any, number: number) => {
       const length = Math.ceil(array.length / number);
       return new Array(length)
-        .fill()
+        .fill(length)
         .map((_: any, i: any) => array.slice(i * number, (i + 1) * number));
     };
-
     /**
      * コンセプトカラーのリストを作成
-     * @type {array}
      */
     const getColorList = (array: any) => {
-      let colorList = arrangeByNumber(array, 2);
+      let colorList = arrangeByNumber(
+        pickRandomValue(shuffleValue(array), 4),
+        2
+      );
       return colorList;
     };
 
@@ -110,6 +179,23 @@ export default defineComponent({
       "--background": "#ffffff",
       "--border": `1px solid ${store.state.backgroundColor}`
     }));
+
+    /**
+     *
+     */
+    const getWorksItem = (index: Number) => {
+      store.commit("setCurrentWorksItem", index);
+      store.commit("setDisplayWorksItemModal", true);
+      let body = document.body;
+      let scrollPosition;
+      if (state.isiOS) {
+        scrollPosition = document.body.scrollTop;
+        body.style.position = "fixed";
+        body.style.top = `-${scrollPosition}px`;
+      } else {
+        body.style.overflow = "hidden";
+      }
+    };
 
     axios
       .get("src/assets/data/works.json")
@@ -134,7 +220,8 @@ export default defineComponent({
       state,
       fadeOnScroll,
       getColorList,
-      styles
+      styles,
+      getWorksItem
     };
   }
 });
@@ -166,30 +253,33 @@ export default defineComponent({
   }
   &__item {
     max-width: 375px;
-    margin-top: 40px;
+    margin-top: 60px;
     color: #ffffff;
     &:first-child {
       margin-top: 0;
     }
     @media screen and (min-width: 660px) {
       max-width: 550px;
-      margin-top: 80px;
+      margin-top: 120px;
     }
     @media screen and (min-width: 1024px) {
       display: flex;
       max-width: 990px;
     }
   }
-  &__image {
+  &__link {
     display: block;
     width: 100%;
     max-width: 550px;
     height: calc(375px / 1.67);
     visibility: hidden;
-    object-fit: cover;
+    cursor: pointer;
     &.visible {
       visibility: visible;
-      animation: imageFade 3s;
+      animation: imageFade 2s;
+    }
+    @media screen and (min-width: 660px) {
+      height: calc(550px / 1.67);
     }
     @keyframes imageFade {
       from {
@@ -200,6 +290,19 @@ export default defineComponent({
         opacity: 1;
         transform: translateX(0px);
       }
+    }
+  }
+  &__image {
+    display: block;
+    width: 100%;
+    max-width: 550px;
+    height: calc(375px / 1.67);
+    object-fit: cover;
+    filter: grayscale(0%);
+    transition: 0.3s;
+    &:hover,
+    &:active {
+      filter: grayscale(100%);
     }
     @media screen and (min-width: 660px) {
       height: calc(550px / 1.67);
@@ -215,7 +318,7 @@ export default defineComponent({
     visibility: hidden;
     &.visible {
       visibility: visible;
-      animation: contentFade 2s;
+      animation: contentFade 1s;
     }
     @keyframes contentFade {
       from {
@@ -259,6 +362,7 @@ export default defineComponent({
   &__concept {
     position: absolute;
     right: 24px;
+    bottom: 0;
   }
   &__colors {
     display: flex;
@@ -273,7 +377,7 @@ export default defineComponent({
     }
   }
   &__category {
-    display: block;
+    display: inline-block;
     margin-top: 16px;
     font-size: 14px;
     @media screen and (min-width: 660px) {
@@ -281,15 +385,14 @@ export default defineComponent({
       font-size: 16px;
     }
   }
-  &__roles {
+  &__skills {
     margin-top: 8px;
     font-size: 14px;
-
     @media screen and (min-width: 660px) {
       font-size: 16px;
     }
   }
-  &__role {
+  &__skill {
     margin-left: 6px;
     line-height: 1;
     @media screen and (min-width: 660px) {
@@ -297,50 +400,54 @@ export default defineComponent({
     }
     &:first-of-type {
       margin-left: 0;
-    }
-  }
-  &__link {
-    display: inline-block;
-    position: relative;
-    width: 240px;
-    margin-top: 32px;
-    padding: 0 40px 0 16px;
-    color: #ffffff;
-    font-size: 12px;
-    text-decoration: none;
-    line-height: 44px;
-    letter-spacing: 0.22em;
-    transition: 0.3s;
-    border: 1px solid #ffffff;
-    &::before {
-      display: block;
-      content: "";
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      width: 10px;
-      height: 10px;
-      margin-top: -4px;
-      transform: rotate(-45deg);
-      border-right: 1px solid #ffffff;
-      border-bottom: 1px solid #ffffff;
-    }
-    &:hover,
-    &:active {
-      color: var(--color);
-      background: var(--background);
       &::before {
-        border-right: var(--border);
-        border-bottom: var(--border);
+        position: absolute;
+        content: "";
+        padding-right: 0;
       }
     }
+    &::before {
+      position: relative;
+      content: "/";
+      padding-right: 6px;
+    }
+  }
+}
+
+.v-enter-active,
+.v-move {
+  transition: opacity 0.5s, transform 0.5s;
+}
+.v-leave-active {
+  position: absolute;
+  width: 100%;
+  transition: opacity 0.5s, transform 0.5s;
+}
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.detail {
+  &__image {
+    max-width: 375px;
+    margin-top: 60px;
     @media screen and (min-width: 660px) {
-      padding-right: 32px;
-      font-size: 14px;
-      letter-spacing: 0.2em;
+      max-width: 550px;
     }
     @media screen and (min-width: 1024px) {
-      line-height: 56px;
+      max-width: 990px;
+    }
+    img {
+      display: block;
+      width: 100%;
+      max-width: 550px;
+      height: calc(375px / 1.67);
+      object-fit: cover;
+      @media screen and (min-width: 660px) {
+        height: calc(550px / 1.67);
+      }
     }
   }
 }

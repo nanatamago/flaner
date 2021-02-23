@@ -125,9 +125,12 @@ export default defineComponent({
     letter-spacing: 0.27em;
   }
   &__description {
-    margin-top: 12px;
+    margin-top: 4px;
+  }
+  &__text {
+    font-size: 16px;
     @media screen and (min-width: 660px) {
-      margin-top: 24px;
+      font-size: 18px;
     }
   }
   &__career {
@@ -135,20 +138,22 @@ export default defineComponent({
     &:first-of-type {
       margin-top: 0;
     }
-    @media screen and (min-width: 660px) {
-      margin-top: 40px;
-    }
   }
   &__company {
+    font-size: 16px;
     font-weight: bold;
+    word-break: break-all;
     &::before {
       position: relative;
       content: "-";
       padding-right: 8px;
     }
+    @media screen and (min-width: 660px) {
+      font-size: 18px;
+    }
   }
   &__occupation {
-    margin-top: 16px;
+    margin-top: 8px;
   }
   &__term {
     margin-top: 8px;

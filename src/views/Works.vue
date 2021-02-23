@@ -1,5 +1,5 @@
 <template>
-  <main class="works" :style="{background: state.backgroundColor}">
+  <main class="works" :style="{ background: state.backgroundColor }">
     <Mainvisual/>
     <div class="works__container">
       <Hello/>
@@ -18,7 +18,6 @@ import {
   onUnmounted
 } from "vue";
 import { useStore } from "vuex";
-import axios from "axios";
 import Mainvisual from "../components/Mainvisual.vue";
 import Hello from "../components/Hello.vue";
 import WorksList from "../components/WorksList.vue";
@@ -29,9 +28,10 @@ export default defineComponent({
   setup: () => {
     const store = useStore();
     const state = reactive<{
-      backgroundColor: ComputedRef<String>;
+      backgroundColor: ComputedRef<any>;
       rectOffsetY: ComputedRef<Number>;
       rectSwitchPoint: ComputedRef<Number>;
+      isDarkmode: Boolean;
     }>({
       backgroundColor: computed(
         (): String => {
@@ -47,12 +47,15 @@ export default defineComponent({
         (): Number => {
           return store.state.offsetY + store.state.height / 2;
         }
-      )
+      ),
+      isDarkmode: false
     });
 
     const changeBackground = () => {
       let scroll = window.pageYOffset;
-      if (scroll < state.rectOffsetY) {
+      if (state.isDarkmode) {
+        store.commit("setBackgroundColor", "#474747");
+      } else if (scroll < state.rectOffsetY) {
         store.commit("setBackgroundColor", "#d4d0bb");
       } else if (scroll > state.rectOffsetY && scroll < state.rectSwitchPoint) {
         store.commit("setBackgroundColor", "#d2c3bc");
@@ -61,7 +64,23 @@ export default defineComponent({
       }
     };
 
+    const checkDarkMode = () => {
+      const darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+      const darkModeOn = darkModeMediaQuery.matches;
+      if (darkModeOn) {
+        return (state.isDarkmode = true);
+      } else {
+        return (state.isDarkmode = false);
+      }
+    };
+
     onMounted(() => {
+      checkDarkMode();
+      if (state.isDarkmode) {
+        store.commit("setBackgroundColor", "#474747");
+      }
       window.addEventListener("scroll", changeBackground);
     });
 
@@ -69,7 +88,7 @@ export default defineComponent({
       window.removeEventListener("scroll", changeBackground);
     });
 
-    return { state };
+    return { state, checkDarkMode };
   }
 });
 </script>

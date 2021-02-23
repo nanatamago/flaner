@@ -9,6 +9,9 @@ export interface GlobalState {
   logoHeight: Number;
   currentRoutePath: String;
   displayHeaderLogo: Boolean;
+  displayWorksItemModal: Boolean;
+  currentWorksItem: Number;
+  UserAgentiOS: Boolean;
 }
 
 export const StateKey: InjectionKey<Store<GlobalState>> = Symbol();
@@ -21,7 +24,10 @@ const store = createStore({
     logoOffsetY: 0,
     logoHeight: 0,
     currentRoutePath: "",
-    displayHeaderLogo: false
+    displayHeaderLogo: false,
+    displayWorksItemModal: false,
+    currentWorksItem: Number,
+    UserAgentiOS: false
   },
   mutations: {
     setBackgroundColor(state, backgroundColor) {
@@ -40,6 +46,15 @@ const store = createStore({
     },
     setDisplayHeaderLogo(state, displayHeaderLogo) {
       state.displayHeaderLogo = displayHeaderLogo;
+    },
+    setDisplayWorksItemModal(state, arg) {
+      state.displayWorksItemModal = arg;
+    },
+    setCurrentWorksItem(state, num) {
+      state.currentWorksItem = num;
+    },
+    setUserAgent(state, UserAgentiOS) {
+      state.UserAgentiOS = UserAgentiOS;
     }
   }
 });

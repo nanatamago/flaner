@@ -1,13 +1,11 @@
 <template>
   <div class="contents">
     <Header/>
-    <router-view></router-view>
-    <!-- <transition>
-        <keep-alive>
-          <component :is="Component"/>
-    </keep-alive>-->
-    <!-- </transition> -->
-    <!-- </router-view> -->
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component"/>
+      </keep-alive>
+    </router-view>
     <Footer/>
   </div>
 </template>
@@ -22,7 +20,7 @@ import {
   ComputedRef
 } from "vue";
 import { useStore } from "vuex";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
@@ -35,19 +33,22 @@ export default defineComponent({
   },
   setup: () => {
     const store = useStore();
-    const router = useRouter();
     const route = useRoute();
 
     const state = reactive<{
       position: Number;
       logoHeight: ComputedRef<Number>;
+      isVisible: ComputedRef<Boolean>;
     }>({
       position: 0,
       logoHeight: computed(
         (): Number => {
           return store.state.logoHeight;
         }
-      )
+      ),
+      isVisible: computed(() => {
+        return store.state.displayWorksItemModal;
+      })
     });
 
     const checkDisplayLogo = () => {
@@ -62,7 +63,16 @@ export default defineComponent({
       }
     };
 
-    document.onscroll = e => {
+    const checkUA = () => {
+      let ua = window.navigator.userAgent.toLowerCase();
+      let isiOS =
+        ua.indexOf("iphone") > -1 ||
+        ua.indexOf("ipad") > -1 ||
+        (ua.indexOf("macintosh") > -1 && "ontouchend" in document);
+      return store.commit("setUserAgent", isiOS);
+    };
+
+    document.onscroll = () => {
       state.position =
         document.documentElement.scrollTop || document.body.scrollTop;
       checkDisplayLogo();
@@ -72,6 +82,7 @@ export default defineComponent({
       let initialPath = route.path;
       store.commit("setCurrentRoutePath", initialPath);
       checkDisplayLogo();
+      checkUA();
     });
 
     watch(
@@ -82,7 +93,7 @@ export default defineComponent({
       }
     );
 
-    return state;
+    return { state };
   }
 });
 </script>
@@ -98,6 +109,7 @@ export default defineComponent({
     url("./assets/font/YakuHanJP-Regular.woff") format("woff");
 }
 body {
+  width: 100%;
   color: #ffffff;
   font-family: "YakuHanJP", -apple-system, BlinkMacSystemFont, "游ゴシック",
     游ゴシック体, YuGothic, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue,
@@ -118,14 +130,4 @@ body {
 li {
   list-style-type: none;
 }
-
-/* .v-enter-to,
-.v-leave-to {
-  transition: all opacity 0.3s;
-}
-
-.v-enter-from,
-.v-leave-from {
-  opacity: 0;
-} */
 </style>
