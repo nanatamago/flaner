@@ -4,7 +4,7 @@
     <ul class="worksList__list">
       <li v-for="(worksItem, index) in worksList" :key="worksItem" class="worksList__item">
         <a class="worksList__link" @click="getWorksItem(index)">
-          <img class="worksList__image" :src="worksItem.image" alt="flaner">
+          <img class="worksList__image" :src="worksItem.thumbnail" alt="flaner">
         </a>
         <div class="worksList__contents">
           <h3 class="worksList__title">{{ worksItem.title }}</h3>
@@ -44,29 +44,55 @@
     </ul>
     <transition>
       <Detail v-if="state.isVisible">
+        <template v-slot:close>閉じる</template>
         <template v-slot:image>
-          <img :src="worksList[state.currentWorksItem].image" alt="flaner" width="550" height="330">
+          <img
+            :src="worksList[state.currentWorksItem].thumbnail"
+            alt="flaner"
+            width="550"
+            height="330"
+          >
         </template>
-        <h2>{{ worksList[state.currentWorksItem].title }}</h2>
-        <p>{{ worksList[state.currentWorksItem].description }}</p>
-        <div class="worksList__colors">
-          コンセプトカラー
-          <span
-            v-for="color in worksList[state.currentWorksItem].colors"
-            :key="color"
-            class="worksList__cube"
-            :style="{background : color}"
-          ></span>
-        </div>
-        <p class="worksList__skills">
-          担当 :
-          <span
-            class="worksList__skill"
-            v-for="role in worksList[state.currentWorksItem].roles"
-            :key="role"
-          >{{ role }}</span>
-        </p>
-        <template v-slot:footer>閉じる</template>
+        <template v-slot:comment>
+          <h2 class="detail__title">{{ worksList[state.currentWorksItem].title }}</h2>
+          <p class="detail__text">{{ worksList[state.currentWorksItem].description }}</p>
+        </template>
+        <template v-if="worksList[state.currentWorksItem].images" v-slot:contents>
+          <figure
+            class="detail__content"
+            v-for="img in worksList[state.currentWorksItem].images"
+            :key="img"
+          >
+            <img :src="img" alt="flaner" width="550" height="330">
+          </figure>
+        </template>
+        <template v-slot:description>
+          <div class="detail__concept">
+            <p>使用カラー :</p>
+            <div class="detail__colors">
+              <span
+                v-for="color in worksList[state.currentWorksItem].colors"
+                :key="color"
+                class="detail__cube"
+                :style="{background : color}"
+              ></span>
+            </div>
+          </div>
+          <div class="detail__skills">
+            <p>担当 :</p>
+            <span
+              class="detail__skill"
+              v-for="role in worksList[state.currentWorksItem].roles"
+              :key="role"
+            >{{ role }}</span>
+          </div>
+          <a
+            class="detail__link"
+            :href="worksList[state.currentWorksItem].link"
+            target="_blank"
+            rel="noopener"
+          >{{ worksList[state.currentWorksItem].link }}</a>
+        </template>
       </Detail>
     </transition>
   </div>
@@ -298,11 +324,11 @@ export default defineComponent({
     max-width: 550px;
     height: calc(375px / 1.67);
     object-fit: cover;
-    filter: grayscale(0%);
+    filter: grayscale(100%);
     transition: 0.3s;
     &:hover,
     &:active {
-      filter: grayscale(100%);
+      filter: grayscale(0%);
     }
     @media screen and (min-width: 660px) {
       height: calc(550px / 1.67);
@@ -439,6 +465,70 @@ export default defineComponent({
     @media screen and (min-width: 1024px) {
       max-width: 990px;
     }
+    img {
+      display: block;
+      width: 100%;
+      max-width: 550px;
+      height: calc(375px / 1.67);
+      object-fit: cover;
+      @media screen and (min-width: 660px) {
+        height: calc(550px / 1.67);
+      }
+    }
+  }
+  &__title {
+    font-family: "copperplate";
+    margin-top: 24px;
+    letter-spacing: 0.14em;
+  }
+  &__text {
+    margin-top: 12px;
+  }
+  &__concept {
+    display: flex;
+    align-items: center;
+  }
+  &__colors {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+  }
+  &__cube {
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin-left: 4px;
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+  &__skills {
+    display: flex;
+    margin-top: 12px;
+  }
+  &__skill {
+    &::before {
+      content: "/";
+      position: relative;
+      padding: 0 4px;
+    }
+    &:first-of-type {
+      margin-left: 16px;
+      &::before {
+        content: "";
+        padding: 0;
+      }
+    }
+  }
+  &__link {
+    display: inline-block;
+    margin-top: 12px;
+    padding-bottom: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom: 1px solid #ffffff;
+  }
+  &__contents {
     img {
       display: block;
       width: 100%;

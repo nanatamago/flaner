@@ -1,15 +1,21 @@
 <template>
   <div class="detail overlay">
     <div class="detail__container">
+      <div class="detail__close" @click="closeModal">
+        <slot name="close"></slot>
+      </div>
       <div class="detail__image">
         <slot name="image"></slot>
       </div>
-      <div class="modal-content">
-        <slot/>
+      <div class="detail__comment">
+        <slot name="comment"></slot>
       </div>
-      <footer class="detail__footer" @click="closeModal">
-        <slot name="footer"></slot>
-      </footer>
+      <div class="detail__contents">
+        <slot name="contents"/>
+      </div>
+      <div class="detail__description">
+        <slot name="description"/>
+      </div>
     </div>
   </div>
 </template>
@@ -56,20 +62,46 @@ export default defineComponent({
     height: 100%;
     overflow-y: scroll;
     z-index: 150;
-    background: rgba(71, 71, 71, 0.9);
+    background: rgba(71, 71, 71, 0.95);
   }
   &__container {
     padding: 40px 24px;
-
     @media screen and (min-width: 660px) {
       max-width: 550px;
       margin: 0 auto;
+      padding: 80px 0;
     }
     @media screen and (min-width: 1024px) {
-      max-width: 990px;
+    }
+  }
+  &__close {
+    display: inline-block;
+    position: fixed;
+    padding-left: 24px;
+    text-align: left;
+    cursor: pointer;
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: calc(50% - 7px);
+      left: 4px;
+      width: 18px;
+      height: 1px;
+      transform: rotate(45deg);
+      transform-origin: 0% 50%;
+      background: #ffffff;
+    }
+
+    &::after {
+      left: -1px;
+      transform: rotate(-45deg);
+      transform-origin: 100% 50%;
     }
   }
   &__image {
+    margin-top: 48px;
     @media screen and (min-width: 660px) {
       max-width: 550px;
     }
@@ -77,15 +109,11 @@ export default defineComponent({
       max-width: 990px;
     }
   }
-
-  &-content {
-    padding: 10px 20px;
+  &__contents {
+    margin-top: 40px;
   }
-
-  &__footer {
-    padding: 10px;
-    text-align: right;
-    cursor: pointer;
+  &__description {
+    margin-top: 40px;
   }
 }
 </style>
