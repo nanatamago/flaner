@@ -1,12 +1,12 @@
 <template>
   <header class="header">
     <div class="header__container">
-      <router-link
-        :class="[ state.isVisible ? 'header__logo--visible' : 'header__logo' ]"
-        :to="{ name:'works'}"
+      <a
+        :class="[ state.isVisible ? 'header__logo' : 'header__logo--hidden' ]"
+        href="https://flaner.today/"
       >
         <img class="header__image" src="../assets/images/logo.png" alt="flaner">
-      </router-link>
+      </a>
       <nav>
         <ul class="header__list">
           <li class="header__item">
@@ -63,11 +63,13 @@ export default defineComponent({
     }
   }
   &__logo {
-    opacity: 0;
+    opacity: 1;
+    visibility: visible;
     transition: 0.3s;
-    &--visible {
+    &--hidden {
       @extend .header__logo;
-      opacity: 1;
+      opacity: 0;
+      visibility: hidden;
     }
   }
   &__image {
@@ -91,7 +93,7 @@ export default defineComponent({
     &:first-child {
       margin-left: 0;
     }
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       margin-left: 40px;
     }
   }
@@ -105,8 +107,9 @@ export default defineComponent({
     &.router-link-active {
       @extend .header__link;
       color: #ffffff;
+      pointer-events: none;
     }
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       font-size: 18px;
     }
   }

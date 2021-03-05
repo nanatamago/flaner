@@ -2,8 +2,8 @@
   <div class="hello">
     <p class="hello__text">
       I’m Nana Takahashi,
-      <br>a designer
-      <br>developer
+      <br>an user interface designer
+      <br>web developer
     </p>
     <router-link class="hello__link" :to="{ name:'about'}">about me</router-link>
   </div>
@@ -31,27 +31,29 @@ export default defineComponent({
     font-family: "copperplate", sans-serif;
     font-size: 22px;
     font-weight: 500;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     @media screen and (min-width: 600px) {
       font-size: 40px;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
     }
   }
   &__link {
     display: inline-block;
-    color: #ffffff;
     margin-top: 16px;
     padding-bottom: 4px;
+    color: #ffffff;
+    font-size: 16px;
     letter-spacing: 0.2em;
     text-decoration: none;
     transition: 0.3s;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid #a5a5a5;
     @media screen and (min-width: 600px) {
       margin-top: 40px;
       font-size: 18px;
     }
-    &:hover {
-      border-bottom: 1px solid #ffffff;
+    &:hover,
+    &:active {
+      border-bottom: 1px solid transparent;
     }
   }
 }

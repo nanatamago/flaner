@@ -5,8 +5,7 @@
         <li class="about__item">
           <h2 class="about__heading">name</h2>
           <div class="about__description">
-            <span class="about__eng">Nana Takahashi</span>
-            <span class="about__jp">高橋 奈々</span>
+            <p class="about__text">Nana Takahashi</p>
           </div>
         </li>
         <li class="about__item">
@@ -20,7 +19,7 @@
             <dl class="about__career">
               <dt class="about__company">Yahoo Japan Corporation（internship）</dt>
               <dd class="about__occupation">UI Designer,Frontend engineer</dd>
-              <dd class="about__term">2017.7 - 2017.8</dd>
+              <dd class="about__term">July, 2017 - August, 2017</dd>
             </dl>
             <dl class="about__career">
               <dt class="about__company">FICC inc（part time job）</dt>
@@ -32,8 +31,10 @@
         <li class="about__item">
           <h2 class="about__heading">education</h2>
           <div class="about__description">
-            Bachelor of Sociology,
-            <br>DOSHISA UNIVERSITY, Japan（2019）
+            <p class="about__text">
+              Bachelor of Sociology,
+              <br>DOSHISA UNIVERSITY, Japan（2019）
+            </p>
           </div>
         </li>
         <li class="about__item">
@@ -78,27 +79,26 @@
         </li>
       </ul>
     </div>
-    <Footer/>
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Footer from "../components/Footer.vue";
 
 export default defineComponent({
-  name: "About",
-  components: { Footer }
+  name: "About"
 });
 </script>
 
 <style lang="scss" scoped>
 .about {
   min-height: 100vh;
-  padding-top: 104px;
+  margin-bottom: -42px;
+  padding: 130px 0 112px;
   background: #474747;
   @media screen and (min-width: 1024px) {
-    padding-top: 209px;
+    margin-bottom: -80px;
+    padding: 160px 0 160px;
   }
   &__container {
     padding: 0 24px;
@@ -113,7 +113,7 @@ export default defineComponent({
     &:first-child {
       margin-top: 0;
     }
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       margin-top: 64px;
     }
   }
@@ -125,16 +125,12 @@ export default defineComponent({
     letter-spacing: 0.27em;
   }
   &__description {
-    margin-top: 12px;
-    @media screen and (min-width: 600px) {
-      margin-top: 24px;
-    }
+    margin-top: 4px;
   }
-  &__eng {
-    &::after {
-      position: relative;
-      content: "-";
-      padding: 0 8px;
+  &__text {
+    font-size: 16px;
+    @media screen and (min-width: 660px) {
+      font-size: 18px;
     }
   }
   &__career {
@@ -142,28 +138,40 @@ export default defineComponent({
     &:first-of-type {
       margin-top: 0;
     }
-    @media screen and (min-width: 600px) {
-      margin-top: 40px;
-    }
   }
   &__company {
+    font-size: 16px;
     font-weight: bold;
+    word-break: break-all;
+    &::before {
+      position: relative;
+      content: "-";
+      padding-right: 8px;
+    }
+    @media screen and (min-width: 660px) {
+      font-size: 18px;
+    }
   }
   &__occupation {
-    margin-top: 16px;
+    margin-top: 8px;
   }
   &__term {
     margin-top: 8px;
   }
   &__contact {
     list-style-type: none;
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 660px) {
       display: flex;
     }
   }
   &__sns {
     display: flex;
-    @media screen and (min-width: 600px) {
+    margin-top: 8px;
+    &:first-child {
+      margin-top: 0;
+    }
+    @media screen and (min-width: 660px) {
+      margin-top: 0;
       margin-left: 40px;
       &:first-child {
         margin-left: 0;
@@ -176,14 +184,28 @@ export default defineComponent({
     letter-spacing: 0.2em;
     text-decoration: none;
     transition: 0.3s;
-    border-bottom: 1px solid transparent;
-    &:hover {
-      border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #a5a5a5;
+    &:hover,
+    &:active {
+      border-bottom: 1px solid transparent;
+    }
+    i {
+      font-size: 16px;
     }
   }
   &__name {
     display: inline-block;
     margin-left: 8px;
   }
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+// フェードインの終了＆フェードアウトの開始
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
 }
 </style>

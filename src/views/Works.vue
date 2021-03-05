@@ -1,10 +1,9 @@
 <template>
-  <main class="works" :style="{background: state.backgroundColor}">
+  <main class="works" :style="{ background: state.backgroundColor }">
     <Mainvisual/>
     <div class="works__container">
       <Hello/>
       <WorksList/>
-      <Footer/>
     </div>
   </main>
 </template>
@@ -14,25 +13,25 @@ import {
   defineComponent,
   reactive,
   computed,
-  onUpdated,
-  ComputedRef
+  ComputedRef,
+  onMounted,
+  onUnmounted
 } from "vue";
 import { useStore } from "vuex";
-import axios from "axios";
 import Mainvisual from "../components/Mainvisual.vue";
 import Hello from "../components/Hello.vue";
 import WorksList from "../components/WorksList.vue";
-import Footer from "../components/Footer.vue";
 
 export default defineComponent({
   name: "Works",
-  components: { Mainvisual, Hello, WorksList, Footer },
+  components: { Mainvisual, Hello, WorksList },
   setup: () => {
     const store = useStore();
     const state = reactive<{
-      backgroundColor: ComputedRef<String>;
+      backgroundColor: ComputedRef<any>;
       rectOffsetY: ComputedRef<Number>;
       rectSwitchPoint: ComputedRef<Number>;
+      isDarkmode: Boolean;
     }>({
       backgroundColor: computed(
         (): String => {
@@ -41,34 +40,68 @@ export default defineComponent({
       ),
       rectOffsetY: computed(
         (): Number => {
-          return store.state.offsetY;
+          return store.state.offsetY - 300;
         }
       ),
       rectSwitchPoint: computed(
         (): Number => {
           return store.state.offsetY + store.state.height / 2;
         }
-      )
+      ),
+      isDarkmode: false
     });
 
-    window.addEventListener("scroll", function() {
+    const changeBackground = () => {
       let scroll = window.pageYOffset;
-      if (scroll < state.rectOffsetY) {
+      if (state.isDarkmode) {
+        store.commit("setBackgroundColor", "#474747");
+      } else if (scroll < state.rectOffsetY) {
         store.commit("setBackgroundColor", "#d4d0bb");
       } else if (scroll > state.rectOffsetY && scroll < state.rectSwitchPoint) {
         store.commit("setBackgroundColor", "#d2c3bc");
       } else if (scroll > state.rectSwitchPoint) {
         store.commit("setBackgroundColor", "#b9cbce");
       }
+    };
+
+    const checkDarkMode = () => {
+      const darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+      const darkModeOn = darkModeMediaQuery.matches;
+      if (darkModeOn) {
+        return (state.isDarkmode = true);
+      } else {
+        return (state.isDarkmode = false);
+      }
+    };
+
+    onMounted(() => {
+      checkDarkMode();
+      if (state.isDarkmode) {
+        store.commit("setBackgroundColor", "#474747");
+      }
+      window.addEventListener("scroll", changeBackground);
     });
-    return { state };
+
+    onUnmounted(() => {
+      window.removeEventListener("scroll", changeBackground);
+    });
+
+    return { state, checkDarkMode };
   }
 });
 </script>
 
 <style lang="scss" scoped>
 .works {
+  margin-bottom: -40px;
+  padding-bottom: 112px;
   transition: 0.7s;
+  @media screen and (min-width: 1024px) {
+    margin-bottom: -80px;
+    padding-bottom: 160px;
+  }
   &__container {
     @media screen and (min-width: 1024px) {
       width: 990px;

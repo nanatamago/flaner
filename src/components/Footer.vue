@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p class="footer__copyright">©︎ 2021 nana takahashi</p>
+    <p class="footer__copyright">© {{date}} nana takahashi</p>
   </footer>
 </template>
 
@@ -8,23 +8,22 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Footer"
+  name: "Footer",
+  setup: () => {
+    let date = new Date().getFullYear();
+    return { date };
+  }
 });
 </script>
 
 <style lang="scss" scoped>
 .footer {
-  margin-top: 80px;
-  padding-bottom: 32px;
   font-size: 12px;
   text-align: center;
   letter-spacing: 0.1em;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 660px) {
     font-size: 14px;
     letter-spacing: 0.18em;
-  }
-  @media screen and (min-width: 1024px) {
-    padding-bottom: 80px;
   }
   &__copyright {
     display: inline-block;
