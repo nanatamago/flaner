@@ -18,18 +18,22 @@
     "skills": ["Figma", "React"],
     "link": "",
     "colors": ["#525252", "#f4f4f4", "#ff5449", ""],
-    "description": "ブログサイト。Reactベースの静的サイトジェネレーターであるGatsby.jsを試用を目的とし作成。どんなことを書いていくブログにするか考えたとき、これまで得たデザインやフロントエンド実装の知見を書き留めていくものにしようと思いました。何かヒントを探していて訪れた方が次々に記事を見ていき目当てのものが見つかると良いな、と思い、また、Gatsby.jsの軽量さを活かすミニマムなデザインにしました。",
+    "description": "ブログサイト。Reactベースの静的サイトジェネレーターであるGatsby.js試用を目的とし作成。どんなことを書いていくブログにするか考えたとき、これまで得たデザインやフロントエンド実装の知見を書き留めていくものにしようと思いました。何かヒントを探していて訪れた方が次々に記事を見ていき目当てのものが見つかると良いな、と思い、また、Gatsby.jsの軽量さを活かすミニマムなデザインにしました。under construction",
     "roles": ["デザイン", "フロントエンド"],
-    "images": ["src/assets/images/peachy_2.png"]
+    "images": [
+      "src/assets/images/Frame_59.png",
+      "src/assets/images/Frame_60.png"
+    ]
   },
   {
     "title": "business card",
     "year": "2019",
     "category": "business card",
-    "thumbnail": "src/assets/images/meishi.webp",
+    "thumbnail": "src/assets/images/businesscard.webp",
     "skills": ["Illustrator"],
     "link": "",
-    "colors": ["#ef7c65", "#2462ff", "#f4f4f4", ""]
+    "colors": ["#1C1C38", "#415578", "#867F6C", "#ffffff", ""],
+    "description": "入社時に課題として作成した自分の名刺。制作テーマは自分を表現することでした。水族館ひいては海月が好きであるため海月を模した夜空に自身の生まれ月の星座であるしし座を浮かべました。柔らかい印象を与えたいと思いしし座の並びは手書きで用意し紙の質も固すぎずカードの四隅は角がない形で仕上げました。入社後実際に名刺を交換する機会があったのですが「海月が夜空なのが自分らしさの表現になっている」と評価をいただきました。"
   },
   {
     "title": "takanana.me",
@@ -47,7 +51,10 @@
     "thumbnail": "src/assets/images/studywith.webp",
     "skills": ["Sketch", "React"],
     "link": "",
-    "colors": ["#CAD4E9", "#F6DCDC", "#f5f4f4", "#76d2b7", ""]
+    "colors": ["#CAD4E9", "#F6DCDC", "#f5f4f4", "#76d2b7", ""],
+    "description": "大学在学中「誰かと一緒に勉強したい」という周囲のニーズから、教科を選んで勉強したい人同士をマッチングしてカメラを写しながら一緒に勉強をするwebアプリケーションを作りました。デザインはSkech、フロント実装はReactを使用しました。現在はサービス終了しています。",
+    "roles": ["デザイン", "フロントエンド"],
+    "images": ["src/assets/images/studywith_2.png"]
   },
   {
     "title": "miel",

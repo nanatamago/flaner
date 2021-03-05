@@ -23,7 +23,7 @@
               ></span>
             </div>
           </div>
-          <span class="worksList__category">#{{ worksItem.category }}</span>
+          <span class="worksList__category">{{ worksItem.category }}</span>
           <p class="worksList__skills">
             skill :
             <span
@@ -32,13 +32,6 @@
               :key="skill"
             >{{ skill }}</span>
           </p>
-          <!-- <a
-            v-if="worksItem.link"
-            :href="worksItem.link"
-            class="worksList__link"
-            target="_blank"
-            rel="noopener"
-          >View website</a>-->
         </div>
       </li>
     </ul>
@@ -78,7 +71,7 @@
               ></span>
             </div>
           </div>
-          <div class="detail__skills">
+          <div v-if="worksList[state.currentWorksItem].roles" class="detail__skills">
             <p>担当 :</p>
             <span
               class="detail__skill"
@@ -87,6 +80,7 @@
             >{{ role }}</span>
           </div>
           <a
+            v-if="worksList[state.currentWorksItem].link"
             class="detail__link"
             :href="worksList[state.currentWorksItem].link"
             target="_blank"
@@ -470,15 +464,17 @@ export default defineComponent({
       width: 100%;
       max-width: 550px;
       height: calc(375px / 1.67);
-      object-fit: cover;
+      object-fit: contain;
       @media screen and (min-width: 660px) {
         height: calc(550px / 1.67);
       }
     }
   }
   &__title {
-    font-family: "copperplate";
     margin-top: 24px;
+    font-family: "copperplate";
+    font-weight: 500;
+
     letter-spacing: 0.14em;
   }
   &__text {
@@ -528,7 +524,11 @@ export default defineComponent({
     text-decoration: none;
     border-bottom: 1px solid #ffffff;
   }
-  &__contents {
+  &__content {
+    padding: 24px 0;
+    @media screen and (min-width: 660px) {
+      padding: 24px 0;
+    }
     img {
       display: block;
       width: 100%;

@@ -109,11 +109,8 @@ export default defineComponent({
       max-width: 990px;
     }
   }
-  &__contents {
-    margin-top: 40px;
-  }
   &__description {
-    margin-top: 40px;
+    margin-top: 24px;
   }
 }
 </style>
