@@ -26,13 +26,11 @@ import { useStore } from "vuex";
 
 export default defineComponent({
   name: "Detail",
-  setup: props => {
+  setup: () => {
     const store = useStore();
     const state = reactive<{
-      worksList: Array<Object>;
       isiOS: ComputedRef<Boolean>;
     }>({
-      worksList: props.worksList,
       isiOS: computed(() => {
         return store.state.userAgentiOS;
       })

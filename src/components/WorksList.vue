@@ -4,34 +4,36 @@
     <ul class="worksList__list">
       <li v-for="(worksItem, index) in worksList" :key="worksItem" class="worksList__item">
         <a class="worksList__link" @click="getWorksItem(index)">
-          <img class="worksList__image" :src="worksItem.thumbnail" alt="flaner">
+          <img class="worksList__image" :src="worksItem.thumbnail" :alt="worksItem.title">
         </a>
         <div class="worksList__contents">
           <h3 class="worksList__title">{{ worksItem.title }}</h3>
           <span class="worksList__year">{{ worksItem.year }}</span>
-          <div v-if="worksItem.colors" class="worksList__concept">
-            <div
-              v-for="colors in getColorList(worksItem.colors)"
-              :key="colors"
-              class="worksList__colors"
-            >
-              <span
-                v-for="color in colors"
-                :key="color"
-                class="worksList__cube"
-                :style="{background : color}"
-              ></span>
+          <div class="worksList__description">
+            <div v-if="worksItem.colors" class="worksList__concept">
+              <div
+                v-for="colors in getColorList(worksItem.colors)"
+                :key="colors"
+                class="worksList__colors"
+              >
+                <span
+                  v-for="color in colors"
+                  :key="color"
+                  class="worksList__cube"
+                  :style="{background : color}"
+                ></span>
+              </div>
             </div>
+            <p v-if="worksItem.category" class="worksList__category">{{ worksItem.category }}</p>
+            <p v-if="worksItem.skills" class="worksList__skills">
+              skill :
+              <span
+                class="worksList__skill"
+                v-for="skill in worksItem.skills"
+                :key="skill"
+              >{{ skill }}</span>
+            </p>
           </div>
-          <span class="worksList__category">{{ worksItem.category }}</span>
-          <p class="worksList__skills">
-            skill :
-            <span
-              class="worksList__skill"
-              v-for="skill in worksItem.skills"
-              :key="skill"
-            >{{ skill }}</span>
-          </p>
         </div>
       </li>
     </ul>
@@ -379,10 +381,17 @@ export default defineComponent({
       font-size: 14px;
     }
   }
+  &__description {
+    position: relative;
+        margin-top: 16px;
+        @media screen and (min-width: 660px) {
+      margin-top: 24px;
+    }
+  }
   &__concept {
     position: absolute;
+    top: 0;
     right: 24px;
-    bottom: 0;
   }
   &__colors {
     display: flex;
@@ -398,10 +407,8 @@ export default defineComponent({
   }
   &__category {
     display: inline-block;
-    margin-top: 16px;
     font-size: 14px;
     @media screen and (min-width: 660px) {
-      margin-top: 24px;
       font-size: 16px;
     }
   }

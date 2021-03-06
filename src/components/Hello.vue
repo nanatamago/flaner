@@ -29,7 +29,7 @@ export default defineComponent({
   }
   &__text {
     font-family: "copperplate", sans-serif;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 500;
     letter-spacing: 0.1em;
     @media screen and (min-width: 600px) {
