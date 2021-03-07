@@ -107,6 +107,7 @@ export default defineComponent({
   font-weight: normal;
   src: url("./assets/font/YakuHanJP-Regular.woff2") format("woff2"),
     url("./assets/font/YakuHanJP-Regular.woff") format("woff");
+  font-display: swap;
 }
 body {
   width: 100%;

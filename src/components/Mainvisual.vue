@@ -73,11 +73,11 @@ export default defineComponent({
   width: 100%;
   height: 100vh;
   font-size: 12px;
-  background: url("../assets/images/mv_sp.webp") no-repeat center top;
+  background: url("../assets/images/mv_sp.jpg") no-repeat center top;
   background-size: cover;
   background-attachment: fixed;
   @media screen and (min-width: 600px) {
-    background: url("../assets/images/mv.webp") no-repeat center bottom;
+    background: url("../assets/images/mv.jpg") no-repeat center bottom;
     background-size: cover;
     background-attachment: fixed;
   }

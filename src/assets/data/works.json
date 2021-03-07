@@ -3,74 +3,77 @@
     "title": "flaner",
     "year": "2021",
     "category": "portfolio website",
-    "thumbnail": "src/assets/images/flaner.webp",
+    "thumbnail": "/assets/images/flaner",
     "skills": ["Sketch", "Vue.js"],
-    "link": "https://flaner.today/",
+    "link": "https://flaner.icu/",
     "colors": ["#d4d0bb", "#ffffff", "#d2c3bc", "#b9cbce", ""],
-    "description": "自分のポートフォリオサイト。「flaner」はフランス語で散歩という意味。制作するにあたり親しい友人に自分の印象やイメージを伺った。そのなかで「凛としている」「芯がある」という言葉を受けて花を連想し、その上でただ可憐で無機質な花とは違う自分らしいメインビジュアルを設定した。また、今後増えていくであろう作品に比例してスクロール量も増えることを鑑み、スクロールが軽やかで変化を感じられるようなアニメーションを加えた。デザインはSketch、実装はVue.jsを使用。",
+    "description": "自分のポートフォリオサイト。「flaner」はフランス語で散歩という意味。制作するにあたり親しい友人に自分の印象やイメージを伺った。そのなかで「凛としている」「芯がある」という言葉を受けて花を連想し、その上でただ可憐で無機質な花とは違う自分らしいメインビジュアルを設定した。また、今後増えていくであろう作品に比例してスクロール量も増えることを鑑み、スクロールが軽やかで変化を感じられるようなアニメーションを加えた。ダークモードに対応したスタイルも設定。デザインはSketch、実装はVue.jsを使用。",
     "roles": ["デザイン", "フロントエンド"]
   },
   {
     "title": "peachy",
     "year": "2021",
     "category": "blog",
-    "thumbnail": "src/assets/images/peachy.webp",
+    "thumbnail": "/assets/images/peachy",
     "skills": ["Figma", "React"],
     "link": "",
     "colors": ["#525252", "#f4f4f4", "#ff5449", ""],
     "description": "ブログサイト。Reactベースの静的サイトジェネレーターであるGatsby.js試用を目的とし作成。何を書いていくブログにするか考えたとき、デザインや開発のこれまでの知見を書き留めておくことや日常での思考を記録することを思い浮かべ、どのようなコンテンツであっても内容がすっと入ってくるようなスッキリとした構成でGatsby.jsの軽量さを活かすミニマムなデザインにした。ツールはFigmaを使用。現在webサイトは工事中。",
     "roles": ["デザイン", "フロントエンド"],
-    "images": [
-      "src/assets/images/Frame_59.png",
-      "src/assets/images/Frame_60.png"
-    ]
+    "images": ["/assets/images/peachy_2", "/assets/images/peachy_3"]
   },
   {
     "title": "rin",
     "year": "2020",
     "category": "iOS application",
-    "thumbnail": "src/assets/images/rin.webp",
+    "thumbnail": "/assets/images/rin",
     "skills": ["Figma"],
     "link": "",
-    "colors": ["#42425E", "#F27D63", "#9E9E9E", "#E9DD76", ""]
+    "colors": ["#42425E", "#FFFFFF", "#F27D63", "#E9DD76", ""],
+    "description": "rinは大切な人との通話を記録するiOSアプリケーション。通話中に盛り上がった会話をAIでピックアップしアルバムに残してくれ、ユーザーはお気に入りの会話を聞き直したりリアクションをすることができる。ターゲット層である10代〜20代によく利用されているアプリやメッセージアプリ、音声アプリのUIを参考にデザインコンセプトを設定した。Figmaで作成。アプリケーションは4人で制作をしており現在は開発段階。",
+    "roles": ["デザイン"],
+    "images": ["/assets/images/peachy_2", "/assets/images/peachy_3"]
   },
   {
     "title": "business card",
     "year": "2019",
     "category": "business card",
-    "thumbnail": "src/assets/images/businesscard.webp",
+    "thumbnail": "/assets/images/businesscard",
     "skills": ["Illustrator"],
     "link": "",
     "colors": ["#1C1C38", "#415578", "#867F6C", "#ffffff", ""],
-    "description": "入社時に課題として作成した自分の名刺。制作テーマは自分を表現すること。水族館ひいては海月が好きであるため海月を模した夜空に自身の生まれ月の星座であるしし座を浮かべました。柔軟な印象を与えたいと思いしし座の並びは手書きで用意し紙の質も固すぎずカードの四隅は角がない形で仕上げた。実際に名刺を交換する機会があったが「海月と夜空の星がマッチしていて綺麗」と評価をいただき、用意していた100枚をお渡しすることに成功した。",
-    "images": ["src/assets/images/meishi_outline.png"]
+    "description": "入社時に課題として作成した自分の名刺。制作テーマは自分を表現すること。水族館ひいては海月が好きであるため海月を模した夜空に自身の生まれ月の星座であるしし座を浮かべた。柔軟な印象を与えたいと思いしし座の並びは手書きで用意し紙の質も固すぎずカードの四隅は角がない形で仕上げた。実際に名刺を交換する機会があったが「海月と夜空の星がマッチしており綺麗、整然とした印象を受けた」と評価をいただき、用意していた100枚を全てお渡しすることができた。",
+    "images": ["/assets/images/businesscard_2"]
   },
   {
     "title": "study with",
     "year": "2018",
     "category": "web application",
-    "thumbnail": "src/assets/images/studywith.webp",
+    "thumbnail": "/assets/images/studywith",
     "skills": ["Sketch", "React"],
     "link": "",
     "colors": ["#CAD4E9", "#F6DCDC", "#f5f4f4", "#76d2b7", ""],
     "description": "大学在学中「誰かと一緒に勉強したい」という周囲のニーズから、教科毎に勉強したい人同士をマッチングしてカメラを写しながら一緒に勉強をするwebアプリケーションを作成。ユーザーの使用デバイスがPC、SPともにほぼ均等の割合だったためどちらの表示でも同じ体験が得られることを意識してデザインをした。主にTwitterで周知をして製作者の周囲で一定の利用を得ることができた。デザインはSkech、フロント実装はReactを使用。現在はサービス終了。",
     "roles": ["デザイン", "フロントエンド"],
-    "images": ["src/assets/images/studywith_2.png"]
+    "images": ["/assets/images/studywith_2"]
   },
   {
-    "title": "miel",
-    "year": "2017",
+    "title": "pastami",
+    "year": "2018",
     "category": "iOS application",
-    "thumbnail": "src/assets/images/miel.webp",
+    "thumbnail": "/assets/images/studywith",
     "skills": ["Sketch"],
     "link": "",
-    "colors": ["#CAD4E9", "#F6DCDC", "#f5f4f4", "#76d2b7", "#4B4B4B", ""]
+    "colors": ["#CAD4E9", "#F6DCDC", "#f5f4f4", "#76d2b7", ""],
+    "description": "仮想のiOSアプリケーション。パスタが好きな友人の「パスタの写真やおすすめのパスタ店を紹介する投稿だけを見ることができるアプリがほしい」という声を受けて作成した。食をテーマにしたアプリということで見ると食欲がそそられるようなカラー、見ていて楽しくなるようなポップな印象を意識してSkechを使いデザインした。",
+    "roles": ["デザイン"],
+    "images": ["/assets/images/studywith_2"]
   },
   {
     "title": "dr.numbers",
     "year": "2017",
     "category": "web application",
-    "thumbnail": "src/assets/images/drnumbers.webp",
+    "thumbnail": "/assets/images/drnumbers",
     "skills": ["Photoshop"],
     "link": "",
     "colors": ["#ef7c65", "#2462ff", "#f4f4f4", ""]

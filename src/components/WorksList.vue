@@ -4,7 +4,23 @@
     <ul class="worksList__list">
       <li v-for="(worksItem, index) in worksList" :key="worksItem" class="worksList__item">
         <a class="worksList__link" @click="getWorksItem(index)">
-          <img class="worksList__image" :src="worksItem.thumbnail" :alt="worksItem.title">
+          <picture class="worksList__image">
+            <source
+              type="image/webp"
+              :srcset="worksItem.thumbnail + '.webp'"
+              width="550"
+              height="330"
+              loading="lazy"
+            >
+            <source type="image/png" :srcset="worksItem.thumbnail + '.png'">
+            <img
+              :src="worksItem.thumbnail + '.png'"
+              :alt="worksItem.title"
+              width="550"
+              height="330"
+              loading="lazy"
+            >
+          </picture>
         </a>
         <div class="worksList__contents">
           <h3 class="worksList__title">{{ worksItem.title }}</h3>
@@ -26,7 +42,6 @@
             </div>
             <p v-if="worksItem.category" class="worksList__category">{{ worksItem.category }}</p>
             <p v-if="worksItem.skills" class="worksList__skills">
-              skill :
               <span
                 class="worksList__skill"
                 v-for="skill in worksItem.skills"
@@ -41,25 +56,50 @@
       <Detail v-if="state.isVisible">
         <template v-slot:close>閉じる</template>
         <template v-slot:image>
-          <img
-            :src="worksList[state.currentWorksItem].thumbnail"
-            alt="flaner"
-            width="550"
-            height="330"
-          >
+          <picture class="detail__picture">
+            <source
+              type="image/webp"
+              :srcset="worksList[state.currentWorksItem].thumbnail + '.webp'"
+              width="550"
+              height="330"
+              loading="lazy"
+            >
+            <source type="image/png" :srcset="worksList[state.currentWorksItem].thumbnail + '.png'">
+            <img
+              :src="worksList[state.currentWorksItem].thumbnail + '.png'"
+              :alt="worksList[state.currentWorksItem].title"
+              width="550"
+              height="330"
+              loading="lazy"
+            >
+          </picture>
         </template>
         <template v-slot:comment>
           <h2 class="detail__title">{{ worksList[state.currentWorksItem].title }}</h2>
           <p class="detail__text">{{ worksList[state.currentWorksItem].description }}</p>
         </template>
         <template v-if="worksList[state.currentWorksItem].images" v-slot:contents>
-          <figure
+          <picture
             class="detail__content"
             v-for="img in worksList[state.currentWorksItem].images"
             :key="img"
           >
-            <img :src="img" alt="flaner" width="550" height="330">
-          </figure>
+            <source
+              type="image/webp"
+              :srcset="img + '.webp'"
+              width="550"
+              height="330"
+              loading="lazy"
+            >
+            <source type="image/png" :srcset="img + '.png'">
+            <img
+              :src="img + '.png'"
+              :alt="worksList[state.currentWorksItem].title"
+              width="550"
+              height="330"
+              loading="lazy"
+            >
+          </picture>
         </template>
         <template v-slot:description>
           <div class="detail__concept">
@@ -220,7 +260,9 @@ export default defineComponent({
     };
 
     axios
-      .get("src/assets/data/works.json")
+      .get(
+        "https://firebasestorage.googleapis.com/v0/b/flaner-fa98b.appspot.com/o/works.json?alt=media&token=92672e63-64eb-4b89-8863-021b1a15f9b6"
+      )
       .then(response => (worksList.value = response.data));
 
     onUpdated(() => {
@@ -315,19 +357,22 @@ export default defineComponent({
     }
   }
   &__image {
-    display: block;
-    width: 100%;
-    max-width: 550px;
-    height: calc(375px / 1.67);
-    object-fit: cover;
-    filter: grayscale(100%);
-    transition: 0.3s;
-    &:hover,
-    &:active {
-      filter: grayscale(0%);
-    }
-    @media screen and (min-width: 660px) {
-      height: calc(550px / 1.67);
+    img {
+      display: block;
+      width: 100%;
+      max-width: 550px;
+      height: calc(375px / 1.67);
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: 0.3s;
+      content-visibility: auto;
+      &:hover,
+      &:active {
+        filter: grayscale(0%);
+      }
+      @media screen and (min-width: 660px) {
+        height: calc(550px / 1.67);
+      }
     }
   }
   &__contents {
@@ -383,8 +428,8 @@ export default defineComponent({
   }
   &__description {
     position: relative;
-        margin-top: 16px;
-        @media screen and (min-width: 660px) {
+    margin-top: 16px;
+    @media screen and (min-width: 660px) {
       margin-top: 24px;
     }
   }
@@ -457,15 +502,7 @@ export default defineComponent({
 }
 
 .detail {
-  &__image {
-    max-width: 375px;
-    margin-top: 60px;
-    @media screen and (min-width: 660px) {
-      max-width: 550px;
-    }
-    @media screen and (min-width: 1024px) {
-      max-width: 990px;
-    }
+  &__picture {
     img {
       display: block;
       width: 100%;
@@ -532,10 +569,8 @@ export default defineComponent({
     border-bottom: 1px solid #ffffff;
   }
   &__content {
-    padding: 24px 0;
-    @media screen and (min-width: 660px) {
-      padding: 24px 0;
-    }
+    display: block;
+    margin-top: 24px;
     img {
       display: block;
       width: 100%;

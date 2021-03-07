@@ -3,9 +3,15 @@
     <div class="header__container">
       <a
         :class="[ state.isVisible ? 'header__logo' : 'header__logo--hidden' ]"
-        href="https://flaner.today/"
+        href="https://flaner.icu/"
       >
-        <img class="header__image" src="../assets/images/logo.png" alt="flaner">
+        <img
+          class="header__image"
+          src="../assets/images/logo.png"
+          alt="flaner"
+          width="395"
+          height="215"
+        >
       </a>
       <nav>
         <ul class="header__list">

@@ -99,6 +99,7 @@ export default defineComponent({
     }
   }
   &__image {
+    max-width: 375px;
     margin-top: 48px;
     @media screen and (min-width: 660px) {
       max-width: 550px;
