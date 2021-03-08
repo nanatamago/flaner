@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vuedx-typecheck . && vite build",
-    "serve": "vite preview"
+    "build": "vite build",
+    "serve": "vite preview",
+    "typecheck": "vuedx-typecheck ."
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -17,6 +18,8 @@
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.6.0",
     "@vuedx/typescript-plugin-vue": "^0.6.0",
+    "postcss": "^8.2.7",
+    "postcss-100vh-fix": "^1.0.2",
     "sass": "^1.32.6",
     "typescript": "^4.1.3",
     "vite": "^2.0.0"

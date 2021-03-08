@@ -10,11 +10,11 @@
       <div class="detail__comment">
         <slot name="comment"></slot>
       </div>
-      <div class="detail__contents">
-        <slot name="contents"/>
-      </div>
       <div class="detail__description">
         <slot name="description"/>
+      </div>
+      <div class="detail__contents">
+        <slot name="contents"/>
       </div>
     </div>
   </div>
@@ -26,13 +26,11 @@ import { useStore } from "vuex";
 
 export default defineComponent({
   name: "Detail",
-  setup: props => {
+  setup: () => {
     const store = useStore();
     const state = reactive<{
-      worksList: Array<Object>;
       isiOS: ComputedRef<Boolean>;
     }>({
-      worksList: props.worksList,
       isiOS: computed(() => {
         return store.state.userAgentiOS;
       })
@@ -66,47 +64,66 @@ export default defineComponent({
   }
   &__container {
     padding: 40px 24px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       max-width: 550px;
       margin: 0 auto;
-      padding: 80px 0;
+      padding: 64px 0;
     }
     @media screen and (min-width: 1024px) {
+      max-width: 900px;
+      padding: 64px 0 128px;
     }
   }
   &__close {
     display: inline-block;
     position: fixed;
-    padding-left: 24px;
+    width: 40px;
+    height: 40px;
     text-align: left;
+    text-indent: -9999px;
+    line-height: 1.5em;
     cursor: pointer;
     &::before,
     &::after {
       content: "";
       display: block;
       position: absolute;
-      top: calc(50% - 7px);
-      left: 4px;
-      width: 18px;
+      top: calc(50% - 15px);
+      left: 5px;
+      width: 40px;
       height: 1px;
       transform: rotate(45deg);
       transform-origin: 0% 50%;
       background: #ffffff;
     }
-
     &::after {
-      left: -1px;
+      left: -7px;
       transform: rotate(-45deg);
       transform-origin: 100% 50%;
     }
+    @media screen and (min-width: 1024px) {
+      width: 52px;
+      height: 52px;
+      &::before,
+      &::after {
+        top: calc(50% - 19px);
+        left: 7px;
+        width: 52px;
+      }
+      &::after {
+        left: -8px;
+      }
+    }
   }
   &__image {
+    max-width: 375px;
     margin-top: 48px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       max-width: 550px;
     }
     @media screen and (min-width: 1024px) {
-      max-width: 990px;
+      max-width: 900px;
+      margin-top: 78px;
     }
   }
   &__description {

@@ -1,9 +1,11 @@
 <template>
-  <main class="works" :style="{ background: state.backgroundColor }">
+  <main class="works">
     <Mainvisual/>
-    <div class="works__container">
-      <Hello/>
-      <WorksList/>
+    <div class="works__container" :style="{ background: state.backgroundColor }">
+      <div class="works__block">
+        <Hello/>
+        <WorksList/>
+      </div>
     </div>
   </main>
 </template>
@@ -95,14 +97,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .works {
-  margin-bottom: -40px;
-  padding-bottom: 112px;
-  transition: 0.7s;
-  @media screen and (min-width: 1024px) {
-    margin-bottom: -80px;
-    padding-bottom: 160px;
-  }
   &__container {
+    margin-bottom: -40px;
+    padding-bottom: 112px;
+    transition: 0.7s;
+    @media screen and (min-width: 1024px) {
+      margin-bottom: -80px;
+      padding-bottom: 160px;
+    }
+  }
+  &__block {
     @media screen and (min-width: 1024px) {
       width: 990px;
       margin: 0 auto;

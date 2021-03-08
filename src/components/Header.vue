@@ -3,9 +3,15 @@
     <div class="header__container">
       <a
         :class="[ state.isVisible ? 'header__logo' : 'header__logo--hidden' ]"
-        href="https://flaner.today/"
+        href="https://flaner.icu/"
       >
-        <img class="header__image" src="../assets/images/logo.png" alt="flaner">
+        <img
+          class="header__image"
+          src="../assets/images/logo.png"
+          alt="flaner"
+          width="395"
+          height="215"
+        >
       </a>
       <nav>
         <ul class="header__list">
@@ -93,7 +99,7 @@ export default defineComponent({
     &:first-child {
       margin-left: 0;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-left: 40px;
     }
   }
@@ -109,7 +115,7 @@ export default defineComponent({
       color: #ffffff;
       pointer-events: none;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 18px;
     }
   }

@@ -2,76 +2,75 @@
   {
     "title": "flaner",
     "year": "2021",
-    "category": "portfolio website 2021",
-    "thumbnail": "src/assets/images/flaner.webp",
+    "category": "portfolio website",
+    "thumbnail": "src/assets/images/flaner",
     "skills": ["Sketch", "Vue.js"],
-    "link": "https://flaner.today/",
-    "colors": ["#d4d0bb", "#ffffff", "#d2c3bc", "#b9cbce"],
-    "description": "自分のポートフォリオサイト。「flaner」はフランス語で散歩という意味です。制作するにあたり親しい友人に自分の印象やイメージを伺いました。そのなかで「凛としている」「芯がある」という言葉を受けて花を連想し、その上でただ可憐で無機質な花とは違う自分らしいメインビジュアルを設定しました。また、今後増えていくであろう作品に比例してスクロール量も増えることを鑑み、スクロールが軽やかで変化を感じられるようなアニメーションを加えました。デザインはSketch、実装はVue.jsを使用しています。",
-    "roles": ["デザイン", "フロントエンド"]
+    "link": "https://flaner.icu/",
+    "colors": ["#d4d0bb", "#d2c3bc", "#b9cbce", "#ffffff", ""],
+    "description": "自分のポートフォリオサイト。「flaner」はフランス語で散歩という意味。制作するにあたり親しい友人に自分の印象やイメージを伺った。そのなかで「凛としている」「芯がある」という言葉を受けて花を連想し、その上でただ可憐で無機質な花とは違う自分らしいメインビジュアルを設定した。また、今後増えていくであろう作品に比例してスクロール量も増えることを鑑み、スクロールが軽やかで変化を感じられるようなアニメーションを加えた。ダークモードに対応したスタイルも設定。デザインはSketch、実装はVue.jsを使用。",
+    "roles": ["design", "frontend"]
   },
   {
     "title": "peachy",
     "year": "2021",
     "category": "blog",
-    "thumbnail": "src/assets/images/peachy.webp",
+    "thumbnail": "src/assets/images/peachy",
     "skills": ["Figma", "React"],
     "link": "",
-    "colors": ["#525252", "#f4f4f4", "#ff5449", ""],
-    "description": "ブログサイト。Reactベースの静的サイトジェネレーターであるGatsby.js試用を目的とし作成。どんなことを書いていくブログにするか考えたとき、これまで得たデザインやフロントエンド実装の知見を書き留めていくものにしようと思いました。何かヒントを探していて訪れた方が次々に記事を見ていき目当てのものが見つかると良いな、と思い、また、Gatsby.jsの軽量さを活かすミニマムなデザインにしました。under construction",
-    "roles": ["デザイン", "フロントエンド"],
+    "colors": ["#ff5449", "#f4f4f4", "#525252", ""],
+    "description": "ブログサイト。Reactベースの静的サイトジェネレーターであるGatsby.js試用を目的とし作成。何を書いていくブログにするか考えたとき、デザインや開発のこれまでの知見を書き留めておくことや日常での思考を記録することを思い浮かべ、どのようなコンテンツであっても内容がすっと入ってくるようなスッキリとした構成でGatsby.jsの軽量さを活かすミニマムなデザインにした。ツールはFigmaを使用。",
+    "roles": ["design", "frontend"],
+    "images": ["src/assets/images/peachy_2", "src/assets/images/peachy_3"]
+  },
+  {
+    "title": "rin",
+    "year": "2020",
+    "category": "iOS application",
+    "thumbnail": "src/assets/images/rin",
+    "skills": ["Figma"],
+    "link": "",
+    "colors": ["#F27D63", "#E9DD76", "#42425E", ""],
+    "description": "rinは大切な人との通話を記録するiOSアプリケーション。通話中に盛り上がった会話をAIでピックアップしアルバムに残してくれ、ユーザーはお気に入りの会話を聞き直したりリアクションをすることができる。メインのターゲット層である10代〜20代に加えて全年齢で馴染みのあるUIにするためメッセージアプリ、音声アプリを参考にデザインコンセプトを設定した。Figmaで作成。プロジェクトメンバーは4人。",
+    "roles": ["design"],
     "images": [
-      "src/assets/images/Frame_59.png",
-      "src/assets/images/Frame_60.png"
+      "src/assets/images/rin_2",
+      "src/assets/images/rin_3",
+      "src/assets/images/rin_4"
     ]
   },
   {
     "title": "business card",
     "year": "2019",
     "category": "business card",
-    "thumbnail": "src/assets/images/businesscard.webp",
+    "thumbnail": "src/assets/images/businesscard",
     "skills": ["Illustrator"],
     "link": "",
-    "colors": ["#1C1C38", "#415578", "#867F6C", "#ffffff", ""],
-    "description": "入社時に課題として作成した自分の名刺。制作テーマは自分を表現することでした。水族館ひいては海月が好きであるため海月を模した夜空に自身の生まれ月の星座であるしし座を浮かべました。柔らかい印象を与えたいと思いしし座の並びは手書きで用意し紙の質も固すぎずカードの四隅は角がない形で仕上げました。入社後実際に名刺を交換する機会があったのですが「海月が夜空なのが自分らしさの表現になっている」と評価をいただきました。"
-  },
-  {
-    "title": "takanana.me",
-    "year": "2018",
-    "category": "portfolio website 2018",
-    "thumbnail": "src/assets/images/takananame.webp",
-    "skills": ["Sketch"],
-    "link": "",
-    "colors": ["#ef7c65", "#2462ff", "#f4f4f4", ""]
+    "colors": ["#867F6C", "#1C1C38", "#415578", "#ffffff", ""],
+    "description": "入社時に課題として作成した自分の名刺。制作テーマは自分を表現すること。水族館ひいては海月が好きであるため海月を模した夜空に自身の生まれ月の星座であるしし座を浮かべた。柔軟な印象を与えたいと思いしし座の並びは手書きで用意し紙の質も固すぎずカードの四隅は角がない形で仕上げた。実際に名刺を交換する機会があったが「海月と夜空の星がマッチしており綺麗、整然とした印象を受けた」と評価をいただき、用意していた100枚を全てお渡しすることができた。",
+    "images": ["src/assets/images/businesscard_2"]
   },
   {
     "title": "study with",
     "year": "2018",
     "category": "web application",
-    "thumbnail": "src/assets/images/studywith.webp",
+    "thumbnail": "src/assets/images/studywith",
     "skills": ["Sketch", "React"],
     "link": "",
-    "colors": ["#CAD4E9", "#F6DCDC", "#f5f4f4", "#76d2b7", ""],
-    "description": "大学在学中「誰かと一緒に勉強したい」という周囲のニーズから、教科を選んで勉強したい人同士をマッチングしてカメラを写しながら一緒に勉強をするwebアプリケーションを作りました。デザインはSkech、フロント実装はReactを使用しました。現在はサービス終了しています。",
-    "roles": ["デザイン", "フロントエンド"],
-    "images": ["src/assets/images/studywith_2.png"]
-  },
-  {
-    "title": "miel",
-    "year": "2017",
-    "category": "iOS application",
-    "thumbnail": "src/assets/images/miel.webp",
-    "skills": ["Sketch"],
-    "link": "",
-    "colors": ["#CAD4E9", "#F6DCDC", "#f5f4f4", "#76d2b7", "#4B4B4B", ""]
+    "colors": ["#CAD4E9", "#F6DCDC", "#76d2b7", "#f5f4f4", ""],
+    "description": "大学在学中「誰かと一緒に勉強したい」という周囲のニーズから、教科毎に勉強したい人同士をマッチングしてカメラを写しながら一緒に勉強をするwebアプリケーションを作成。ユーザーの使用デバイスがPC、SPともにほぼ均等の割合だったためどちらの表示でも同じ体験が得られることを意識してデザインをした。主にTwitterで周知をして製作者の周囲で一定の利用を得ることができた。デザインはSkech、フロント実装はReactを使用。現在はサービス終了。",
+    "roles": ["design", "frontend"],
+    "images": ["src/assets/images/studywith_2"]
   },
   {
     "title": "dr.numbers",
     "year": "2017",
     "category": "web application",
-    "thumbnail": "src/assets/images/drnumbers.webp",
+    "thumbnail": "src/assets/images/drnumbers",
     "skills": ["Photoshop"],
     "link": "",
-    "colors": ["#ef7c65", "#2462ff", "#f4f4f4", ""]
+    "colors": ["#008bfa", "#ffffff", "#333333", ""],
+    "description": "webアプリケーション。dr.numbersはみんなで作る数字のデータベース。その数字に対する投稿者の個人的な思い出や、「フィボナッチ素数である」といった一般的な特性などを投稿し、また、みんなが投稿した数字を検索することができる。デザインはphotoshopで行い、数字の世界観を表現するためメインビジュアルに幾何学的なアニメーションをつけた。主に学生の間で想像以上に多く使ってもらうことができ、当時所属していた学生ITコミュニティでデザインに対して高い評価を得ることができた。現在はサービス終了。",
+    "roles": ["design", "frontend"],
+    "images": ["src/assets/images/drnumbers_2", "src/assets/images/drnumbers_3"]
   }
 ]
