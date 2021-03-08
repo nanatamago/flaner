@@ -21,7 +21,7 @@ export default defineComponent({
 .hello {
   padding: 40px 24px 0;
   @media screen and (min-width: 600px) {
-    padding-top: 80px;
+    padding: 80px 0 0;
   }
   &__text {
     font-family: "copperplate", sans-serif;

@@ -32,7 +32,7 @@
           <h2 class="about__heading">education</h2>
           <div class="about__description">
             <p class="about__text">
-              Bachelor of Sociology,
+              Bachelor of Arts in Sociology,
               <br>DOSHISA UNIVERSITY, Japan（2019）
             </p>
           </div>
@@ -113,28 +113,28 @@ export default defineComponent({
     &:first-child {
       margin-top: 0;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-top: 64px;
     }
   }
   &__heading {
     color: #a5a5a5;
     font-family: Copperplate;
-    font-size: 18px;
+    font-size: 0.9em;
     font-weight: 500;
     letter-spacing: 0.27em;
   }
   &__description {
-    margin-top: 4px;
+    margin-top: 0.3em;
   }
   &__text {
     font-size: 16px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 18px;
     }
   }
   &__career {
-    margin-top: 32px;
+    margin-top: 2.5em;
     &:first-of-type {
       margin-top: 0;
     }
@@ -143,24 +143,18 @@ export default defineComponent({
     font-size: 16px;
     font-weight: bold;
     word-break: break-all;
-    &::before {
-      position: relative;
-      content: "-";
-      padding-right: 8px;
-    }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 18px;
     }
   }
   &__occupation {
-    margin-top: 8px;
+    margin-top: 4px;
   }
   &__term {
-    margin-top: 8px;
   }
   &__contact {
     list-style-type: none;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       display: flex;
     }
   }

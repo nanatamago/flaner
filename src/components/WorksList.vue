@@ -78,6 +78,34 @@
           <h2 class="detail__title">{{ worksList[state.currentWorksItem].title }}</h2>
           <p class="detail__text">{{ worksList[state.currentWorksItem].description }}</p>
         </template>
+        <template v-slot:description>
+          <div class="detail__concept">
+            <p>colors :</p>
+            <div class="detail__colors">
+              <span
+                v-for="color in worksList[state.currentWorksItem].colors"
+                :key="color"
+                class="detail__cube"
+                :style="{background : color}"
+              ></span>
+            </div>
+          </div>
+          <div v-if="worksList[state.currentWorksItem].roles" class="detail__skills">
+            <p>role :</p>
+            <span
+              class="detail__skill"
+              v-for="role in worksList[state.currentWorksItem].roles"
+              :key="role"
+            >{{ role }}</span>
+          </div>
+          <a
+            v-if="worksList[state.currentWorksItem].link"
+            class="detail__link"
+            :href="worksList[state.currentWorksItem].link"
+            target="_blank"
+            rel="noopener"
+          >{{ worksList[state.currentWorksItem].link }}</a>
+        </template>
         <template v-if="worksList[state.currentWorksItem].images" v-slot:contents>
           <picture
             class="detail__content"
@@ -100,34 +128,6 @@
               loading="lazy"
             >
           </picture>
-        </template>
-        <template v-slot:description>
-          <div class="detail__concept">
-            <p>使用カラー :</p>
-            <div class="detail__colors">
-              <span
-                v-for="color in worksList[state.currentWorksItem].colors"
-                :key="color"
-                class="detail__cube"
-                :style="{background : color}"
-              ></span>
-            </div>
-          </div>
-          <div v-if="worksList[state.currentWorksItem].roles" class="detail__skills">
-            <p>担当 :</p>
-            <span
-              class="detail__skill"
-              v-for="role in worksList[state.currentWorksItem].roles"
-              :key="role"
-            >{{ role }}</span>
-          </div>
-          <a
-            v-if="worksList[state.currentWorksItem].link"
-            class="detail__link"
-            :href="worksList[state.currentWorksItem].link"
-            target="_blank"
-            rel="noopener"
-          >{{ worksList[state.currentWorksItem].link }}</a>
         </template>
       </Detail>
     </transition>
@@ -236,12 +236,6 @@ export default defineComponent({
       return colorList;
     };
 
-    const styles = computed<Object>(() => ({
-      "--color": store.state.backgroundColor,
-      "--background": "#ffffff",
-      "--border": `1px solid ${store.state.backgroundColor}`
-    }));
-
     /**
      *
      */
@@ -282,7 +276,6 @@ export default defineComponent({
       state,
       fadeOnScroll,
       getColorList,
-      styles,
       getWorksItem
     };
   }
@@ -533,7 +526,7 @@ export default defineComponent({
   &__colors {
     display: flex;
     align-items: center;
-    margin-left: 16px;
+    margin-left: 8px;
   }
   &__cube {
     display: block;
@@ -555,7 +548,7 @@ export default defineComponent({
       padding: 0 4px;
     }
     &:first-of-type {
-      margin-left: 16px;
+      margin-left: 8px;
       &::before {
         content: "";
         padding: 0;
@@ -578,7 +571,7 @@ export default defineComponent({
       width: 100%;
       max-width: 375px;
       height: calc(375px / 1.67);
-      object-fit: cover;
+      object-fit: contain;
       @media screen and (min-width: 600px) {
         max-width: 550px;
         height: calc(550px / 1.67);
@@ -586,6 +579,7 @@ export default defineComponent({
       @media screen and (min-width: 1024px) {
         max-width: 900px;
         height: calc(900px / 1.67);
+        margin-top: 48px;
       }
     }
   }
