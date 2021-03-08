@@ -99,7 +99,7 @@ export default defineComponent({
     &:first-child {
       margin-left: 0;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-left: 40px;
     }
   }
@@ -115,7 +115,7 @@ export default defineComponent({
       color: #ffffff;
       pointer-events: none;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 18px;
     }
   }

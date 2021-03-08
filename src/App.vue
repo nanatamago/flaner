@@ -119,7 +119,8 @@ body {
   font-size: 14px;
   font-feature-settings: "palt";
   letter-spacing: 0.14em;
-  @media screen and (min-width: 660px) {
+  background: #474747;
+  @media screen and (min-width: 600px) {
     font-size: 16px;
   }
 }
@@ -130,5 +131,9 @@ body {
 }
 li {
   list-style-type: none;
+}
+
+html {
+  height: -webkit-fill-available;
 }
 </style>

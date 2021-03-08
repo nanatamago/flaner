@@ -21,7 +21,7 @@ export default defineComponent({
   font-size: 12px;
   text-align: center;
   letter-spacing: 0.1em;
-  @media screen and (min-width: 660px) {
+  @media screen and (min-width: 600px) {
     font-size: 14px;
     letter-spacing: 0.18em;
   }

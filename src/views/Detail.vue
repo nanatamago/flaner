@@ -64,19 +64,23 @@ export default defineComponent({
   }
   &__container {
     padding: 40px 24px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       max-width: 550px;
       margin: 0 auto;
       padding: 80px 0;
     }
     @media screen and (min-width: 1024px) {
+      max-width: 900px;
+      padding: 80px 0 128px;
     }
   }
   &__close {
     display: inline-block;
     position: fixed;
-    padding-left: 24px;
+    padding-left: 1.8em;
+    font-size: 1em;
     text-align: left;
+    line-height: 1.5em;
     cursor: pointer;
     &::before,
     &::after {
@@ -91,21 +95,33 @@ export default defineComponent({
       transform-origin: 0% 50%;
       background: #ffffff;
     }
-
     &::after {
       left: -1px;
       transform: rotate(-45deg);
       transform-origin: 100% 50%;
     }
+    @media screen and (min-width: 1024px) {
+      padding-left: 3em;
+      font-size: 1em;
+      &::before,
+      &::after {
+        top: calc(50% - 16px);
+        width: 48px;
+      }
+      &::after {
+        left: -10px;
+      }
+    }
   }
   &__image {
     max-width: 375px;
     margin-top: 48px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       max-width: 550px;
     }
     @media screen and (min-width: 1024px) {
-      max-width: 990px;
+      max-width: 900px;
+      margin-top: 78px;
     }
   }
   &__description {

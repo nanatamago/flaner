@@ -170,7 +170,7 @@ export default defineComponent({
     &:first-child {
       margin-top: 0;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-top: 0;
       margin-left: 40px;
       &:first-child {
@@ -184,7 +184,7 @@ export default defineComponent({
     letter-spacing: 0.2em;
     text-decoration: none;
     transition: 0.3s;
-    border-bottom: 1px solid #a5a5a5;
+    border-bottom: 1px solid #ffffff;
     &:hover,
     &:active {
       border-bottom: 1px solid transparent;

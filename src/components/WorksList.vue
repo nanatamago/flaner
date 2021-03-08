@@ -260,9 +260,7 @@ export default defineComponent({
     };
 
     axios
-      .get(
-        "https://firebasestorage.googleapis.com/v0/b/flaner-fa98b.appspot.com/o/works.json?alt=media&token=92672e63-64eb-4b89-8863-021b1a15f9b6"
-      )
+      .get("src/assets/data/works.json")
       .then(response => (worksList.value = response.data));
 
     onUpdated(() => {
@@ -294,7 +292,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .worksList {
   margin-top: 80px;
-  @media screen and (min-width: 660px) {
+  @media screen and (min-width: 600px) {
     margin-top: 120px;
   }
   &__heading {
@@ -302,7 +300,7 @@ export default defineComponent({
     font-family: "copperplate", sans-serif;
     font-size: 18px;
     font-weight: 300;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 24px;
     }
     @media screen and (min-width: 1024px) {
@@ -311,7 +309,7 @@ export default defineComponent({
   }
   &__list {
     margin-top: 32px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-top: 40px;
     }
   }
@@ -322,7 +320,7 @@ export default defineComponent({
     &:first-child {
       margin-top: 0;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       max-width: 550px;
       margin-top: 120px;
     }
@@ -342,7 +340,7 @@ export default defineComponent({
       visibility: visible;
       animation: imageFade 2s;
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       height: calc(550px / 1.67);
     }
     @keyframes imageFade {
@@ -370,7 +368,7 @@ export default defineComponent({
       &:active {
         filter: grayscale(0%);
       }
-      @media screen and (min-width: 660px) {
+      @media screen and (min-width: 600px) {
         height: calc(550px / 1.67);
       }
     }
@@ -397,7 +395,7 @@ export default defineComponent({
         transform: translateY(0px);
       }
     }
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-top: -16px;
     }
     @media screen and (min-width: 1024px) {
@@ -412,7 +410,7 @@ export default defineComponent({
     font-size: 22px;
     font-weight: 500;
     letter-spacing: 0.14em;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 32px;
     }
   }
@@ -421,7 +419,7 @@ export default defineComponent({
     margin-top: 4px;
     font-family: "copperplate", sans-serif;
     font-size: 12px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-top: 6px;
       font-size: 14px;
     }
@@ -429,7 +427,7 @@ export default defineComponent({
   &__description {
     position: relative;
     margin-top: 16px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-top: 24px;
     }
   }
@@ -445,7 +443,7 @@ export default defineComponent({
     display: block;
     width: 16px;
     height: 16px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       width: 18px;
       height: 18px;
     }
@@ -453,21 +451,21 @@ export default defineComponent({
   &__category {
     display: inline-block;
     font-size: 14px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 16px;
     }
   }
   &__skills {
     margin-top: 8px;
     font-size: 14px;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       font-size: 16px;
     }
   }
   &__skill {
     margin-left: 6px;
     line-height: 1;
-    @media screen and (min-width: 660px) {
+    @media screen and (min-width: 600px) {
       margin-left: 6px;
     }
     &:first-of-type {
@@ -506,11 +504,16 @@ export default defineComponent({
     img {
       display: block;
       width: 100%;
-      max-width: 550px;
+      max-width: 375px;
       height: calc(375px / 1.67);
       object-fit: contain;
-      @media screen and (min-width: 660px) {
+      @media screen and (min-width: 600px) {
+        max-width: 550px;
         height: calc(550px / 1.67);
+      }
+      @media screen and (min-width: 1024px) {
+        max-width: 900px;
+        height: calc(900px / 1.67);
       }
     }
   }
@@ -518,7 +521,6 @@ export default defineComponent({
     margin-top: 24px;
     font-family: "copperplate";
     font-weight: 500;
-
     letter-spacing: 0.14em;
   }
   &__text {
@@ -574,11 +576,16 @@ export default defineComponent({
     img {
       display: block;
       width: 100%;
-      max-width: 550px;
+      max-width: 375px;
       height: calc(375px / 1.67);
       object-fit: cover;
-      @media screen and (min-width: 660px) {
+      @media screen and (min-width: 600px) {
+        max-width: 550px;
         height: calc(550px / 1.67);
+      }
+      @media screen and (min-width: 1024px) {
+        max-width: 900px;
+        height: calc(900px / 1.67);
       }
     }
   }
